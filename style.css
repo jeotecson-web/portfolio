@@ -1,0 +1,1809 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FDFDF9;
+    color: #1A1A1A;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Fixed Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: center; /* Forces the internal container to the center */
+    align-items: center;
+    padding: 2rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* Hamburger button: hidden by default (desktop). Only shown inside the
+   max-width: 768px media query further down. No !important needed here
+   since there is nothing else on desktop competing for this rule. */
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #2D5BFF;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+    transform: scale(1.05);
+}
+
+.mobile-menu-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Base Portfolio grouping (Desktop) */
+.text-group {
+    display: flex;
+    align-items: center;
+}
+
+/* Hide hyphen completely on desktop */
+.letter-hyphen {
+    display: none !important; 
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+
+.navbar a:hover {
+    color: #E24836;
+    text-decoration: underline;
+    text-decoration-color: #E24836;
+}
+
+/* Dark background theme switch for Navbar links */
+.navbar.nav-light-mode a {
+    color: #FFFFFF;
+}
+
+.navbar.nav-light-mode a:hover {
+    color: #E24836;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 14rem 2rem 5rem 2rem;
+    width: 100%;
+}
+
+.hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: max-content;
+    margin: 0 auto; 
+}
+
+.hero-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 2rem 1.5rem 2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    word-spacing: 0.3em;
+    color: #000000;
+}
+
+.hero-subtitle {
+    color: #E04B3E;
+    font-weight: 600;
+    font-size: 2.35vw;
+    letter-spacing: 0.02em;
+    margin-bottom: -2.8vw;
+    z-index: 2;
+    position: relative;
+    padding-left: 0;
+    line-height: 1;
+}
+
+/* Portfolio Typography */
+.portfolio-container {
+    display: flex;
+    align-items: center;
+    font-size: 16vw;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: #1C1C1C;
+    cursor: default;
+}
+
+.letter {
+    display: inline-block;
+    font-weight: 700;
+    transition: transform 0.25s ease;
+}
+
+.letter-p { margin-right: -0.04em; }
+.letter-r { margin-left: -0.08em; position: relative; z-index: 1; }
+.letter-t { margin-left: -0.04em; margin-right: -0.02em; }
+.letter-f { margin-right: -0.03em; }
+
+/* Smiley Image Styling */
+.smiley {
+    width: 0.78em;
+    height: auto;
+    margin: 0 -0.08em;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.letter:hover {
+    transform: translateY(-0.35rem);
+}
+
+.smiley:hover {
+    transform: translateY(-0.35rem) scale(1.03);
+}
+
+.smiley:hover + .letter-r,
+.smiley:hover ~ .letter-r {
+    z-index: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .portfolio-container { font-size: 18vw; }
+    .hero-subtitle { 
+        font-size: 2.65vw; 
+        margin-bottom: -3.1vw; 
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Prevent horizontal scrolling on the whole page */
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        overscroll-behavior-x: none !important;
+        position: relative !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+body > section, 
+body > div, 
+body > main {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.hero-wrapper, 
+.marquee-ribbon-container, 
+section {
+    max-width: 100vw;
+    overflow-x: visible;
+    overflow-y: visible !important;
+    box-sizing: border-box;
+}
+
+/* Prevent hero from becoming wider than viewport (was causing odd “disappearing/shift” when swiping) */
+.hero-wrapper {
+    width: 100% !important;
+    max-width: 100vw !important;
+}
+
+/* 3. Special handling for the marquee so it doesn't break the layout */
+.marquee-ribbon-track {
+    max-width: none !important;
+    display: flex;
+    /* The track can be wide, but its container must be hidden (see above) */
+}
+
+/* Ensure the marquee or wide sections don't cause overflow */
+.marquee-ribbon-track, 
+.marquee-ribbon-container {
+    overflow: hidden;
+}
+.marquee-ribbon-container, 
+.tools-pin-wrapper {
+    max-width: 100vw !important;
+    overflow: hidden !important;
+}
+
+.about-graphics-right {
+    margin-top: 200px; /* Increased to add distance from ribbon */
+}
+
+.slanted-blue-backdrop {
+    top: -170px !important; /* Lowered from -192px */
+}
+
+.polaroid-frame-container {
+    top: -170px !important; /* Lowered from -180px */
+}
+
+  .about-marquee-ribbon {
+    display: none !important;
+  }
+
+/* Ensure navbar is pinned to the actual viewport */
+nav.navbar {
+    width: 100%;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+    /* Navbar adjustments */
+    .navbar {
+        padding: 1.5rem 1.5rem;
+        justify-content: flex-end; /* Push hamburger to top right */
+    }
+    
+    .nav-links {
+        display: none; /* Hide desktop links */
+    }
+
+  .nav-links.active {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white; /* Or your theme color */
+    justify-content: center;
+    align-items: center;
+    z-index: 9998; /* Just below the close button */
+  }
+
+  /* Show the hamburger only here, inside the mobile breakpoint */
+  .mobile-menu-btn {
+    display: flex;
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    z-index: 9999;
+  }
+
+      .nav-links.mobile-active {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.98);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .nav-links.mobile-active a {
+        font-size: 2rem;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Mobile left-aligned & staggered hero layout */
+    .hero-section {
+        justify-content: center;
+        padding: 0;
+    }
+
+.hero-wrapper {
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 0;
+}
+
+.hero-subtitle {
+    font-size: 3.8vw;
+    margin-bottom: -1vw;
+    margin-left: 1rem;
+}
+
+    .portfolio-container {
+        flex-direction: column; 
+        align-items: center; /* Pulls words to the left */
+        font-size: 26vw;        
+        line-height: 0.8;       
+    }
+
+    .letter-hyphen {
+        display: inline-block !important; /* Show the hyphen on mobile */
+        margin-left: -0.05em;
+    }
+
+    .folio-group {
+        margin-top: 0;
+        transform: translateX(35%); /* Shift "folio" to the right to create the stagger */
+    }
+
+    .hero-footer {
+        font-size: 0.75rem;
+        padding: 2rem 1.5rem;
+        line-height: 1.6;
+    }
+}
+
+/* --- ABOUT SECTION STYLES (DARK THEME) --- */
+.about-section {
+    background-color: #121212;
+    color: #FFFFFF;
+    padding: 8rem 2rem 12rem 2rem;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about-content-left {
+    flex: 1.1;
+    max-width: 620px;
+}
+
+.about-title {
+    font-size: 5.5rem;
+    font-weight: 900;
+    line-height: 0.85;
+    text-transform: lowercase;
+    letter-spacing: -0.04em;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.starburst-accent {
+    width: 3.2rem;
+    height: 3.2rem;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: -0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.about-contact-row {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.contact-pill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+}
+
+.contact-svg-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+.about-body-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #DDDDDD;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.about-body-text strong {
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+/* --- RIGHT SIDE RENDERING (GRAPHICS & LAYERING) --- */
+.about-graphics-right {
+    flex: 0.9;
+    position: relative;
+    height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slanted-blue-backdrop {
+    position: absolute;
+    width: 330px;
+    height: 410px;
+    background-color: #2D5BFF;
+    border-radius: 24px;
+    transform: rotate(-6deg) translate(-25px, -15px);
+    z-index: 1;
+}
+
+.polaroid-frame-container {
+    position: absolute;
+    width: 335px;
+    background-color: #FFFFFF;
+    padding: 16px 16px 65px 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+    transform: rotate(0deg);
+    transition: transform 0.1s ease-out;
+}
+
+.polaroid-image-frame {
+    width: 100%;
+    height: 295px;
+    background-size: cover;
+    background-position: center;
+    background-color: #E2E2E2;
+}
+
+.sticker-badge-cluster {
+    position: absolute;
+    width: 280px;
+    height: 200px;
+    right: -20px;
+    bottom: -40px;
+    z-index: 3;
+}
+
+.sticker-badge {
+    position: absolute;
+    font-weight: 900;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1.6rem;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: transform 0.1s ease-out;
+}
+
+.website-badge {
+    background-color: #2D5BFF;
+    color: #FFFFFF;
+    top: 15px;
+    left: 20px;
+    transform: rotate(-11deg);
+    border: 3px solid #121212;
+}
+
+.mobile-badge {
+    background-color: #E04B3E;
+    color: #FFFFFF;
+    top: 68px;
+    left: 105px;
+    transform: rotate(7deg);
+    border: 3px solid #121212;
+}
+
+.brand-badge {
+    background-color: #FFFFFF;
+    color: #2D5BFF;
+    border: 5px double #2D5BFF;
+    border-radius: 50%;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    bottom: 15px;
+    left: 25px;
+    transform: rotate(-14deg);
+}
+
+.mini-starburst-sticker {
+    position: absolute;
+    width: 2.1rem;
+    height: 2.1rem;
+    left: 10px;
+    top: 85px;
+    transform: rotate(12deg);
+}
+
+/* --- INFINITE RUNNING MARQUEE --- */
+.about-marquee-ribbon {
+    position: absolute;
+    bottom: 6.5rem;
+    left: 2rem;
+    width: calc(100% - 4rem);
+    background-color: #2D5BFF;
+    padding: 0.9rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transform: skewY(-2deg);
+    left: 0;
+    width: 100%;
+}
+
+.marquee-ribbon-track {
+    display: inline-block;
+    animation: linearInfiniteMarquee 28s linear infinite;
+    transform: skewY(-2deg);
+}
+
+.marquee-ribbon-track span {
+    display: inline-block;
+    color: #FFFFFF;
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    word-spacing: 0.25rem;
+    transform: skewY(2deg);
+}
+
+@keyframes linearInfiniteMarquee {
+    0% { transform: translate3d(0, 0, 0) skewY(-2deg); }
+    100% { transform: translate3d(-50%, 0, 0) skewY(-2deg); }
+}
+
+/* Responsive Overrides for About Section */
+@media (max-width: 992px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 6rem;
+        padding-bottom: 4rem;
+    }
+    .about-title { font-size: 4rem; }
+    .about-contact-row { justify-content: center; }
+    .about-graphics-right { width: 100%; max-width: 400px; }
+}
+
+@media (max-width: 768px) {
+
+      .tools-pin-wrapper {
+    height: auto !important;
+  }
+
+  section#tools {
+    height: auto !important;
+    position: relative !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  #contactTitle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 5.5rem; /* Increased size */
+    line-height: 1.1;
+}
+
+#contactTitle .contact-space {
+    flex-basis: 100%; /* Forces line break */
+    height: 0;
+}
+
+/* Targeting the letters of "me" to align right */
+#contactTitle .contact-space + .hover-letter {
+    margin-left: auto;
+}
+
+h1#contactTitle {
+    margin-bottom: 1rem; /* Reduced from 4rem */
+}
+
+.contact-info-grid {
+    row-gap: 0.5rem; /* Reduced from 1.8rem */
+}
+
+.smiley-o-container {
+    overflow: visible;
+    z-index: 10;
+    position: relative;
+}
+
+section#contact {
+    min-height: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.smiley-o-img {
+    transform: scale(1.5) translateY(5%); /* Significantly larger */
+    position: relative;
+    z-index: 11;
+}
+
+    .sticker-badge-cluster {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        height: auto;
+        margin-top: 1rem;
+        overflow: visible !important;
+    }
+
+  .sticker-badge.website-badge {
+    position: absolute;
+    top: 110px; /* Bring it back up to see if it appears, then slowly increase this number */
+    left: 30px;
+    transform: rotate(80deg);
+    z-index: 1000;
+  }
+
+    .sticker-badge.mobile-badge {
+    position: absolute;
+    top: -180px; /* Bring it back up to see if it appears, then slowly increase this number */
+    left: -30px;
+    transform: rotate(80deg);
+    z-index: 1000;
+  }
+
+      .sticker-badge.brand-badge {
+    position: absolute;
+    top: -60px; /* Bring it back up to see if it appears, then slowly increase this number */
+    left: 200px;
+    transform: rotate(80deg);
+    z-index: 1000;
+  }
+
+    .about-marquee-ribbon {
+    /* Lower the ribbon to sit below the slanted-blue-backdrop */
+    bottom: 0.8rem !important;
+    /* Optional: If the section itself is too short, you might need to 
+       add padding to the parent section to prevent clipping */
+  }
+    .about-contact-row {
+        gap: 0.75rem;
+    }
+
+      .about-graphics-right {
+    margin-top: 80px; /* Push the whole group down by 40px */
+  }
+
+    .slanted-blue-backdrop {
+    width: 320px;  /* Reduced from 330px */
+    height: 400px; /* Reduced from 410px */
+    
+    transform: rotate(-6deg) translate(0px, -15px); 
+    
+    left: 50%;
+    margin-left: -150px;
+  }
+
+    .about-marquee-ribbon {
+    bottom: 2rem; 
+  }
+
+    .about-content-left {
+    margin-top: -60px; /* Adjust this value to move it further up or down */
+  }
+
+#pageToggleBtn {
+    /* 1. Remove the absolute positioning that's pinning it to the top */
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    
+    /* 2. Add some space between the description and the button */
+    margin-top: 1.5rem;
+    
+    /* 3. Center it if needed */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* You might also need to ensure the parent is flexible */
+  .carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+    .carousel-item.active {
+    /* Move the image higher up to clear the title */
+    top: 60px !important; 
+    
+    /* OR move it below the title */
+    /* top: 380px !important; */
+  }
+
+    .link-text {
+    font-size: 1.5rem !important; /* Adjust this value (e.g., 1.2rem, 18px) to your preference */
+  }
+
+    .arrow-circle {
+    /* Scale down the circle container */
+    width: 36px !important;  /* Reduced from 54px */
+    height: 36px !important; /* Reduced from 54px */
+    
+    /* Ensure the icon inside scales down too */
+    font-size: 1.2rem !important; 
+  }
+
+  /* Optional: Ensure they align perfectly in the center */
+  .view-projects-link {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between text and circle */
+  }
+  
+  /* Make sure the description card is in the right order */
+  .tool-details-card {
+    order: 1;
+  }
+  
+  #pageToggleBtn {
+    order: 2; /* This forces it to appear after the card */
+  }
+
+    .hero-wrapper {
+    transform: scale(1.1);
+    margin-left: 40px; 
+    align-items: flex-start; 
+  }
+
+  /* Alternatively, increase the specific text sizes if they are still too small */
+  .hero-subtitle {
+    font-size: 5vw; /* Increased from 3.8vw */
+  }
+  div#portfolio {
+    font-size: 30vw; /* Increased from 26vw */
+  }
+
+    .brand-badge {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+/* --- TOOLS CAROUSEL SECTION --- */
+.tools-section {
+    background-color: #FDFDF9;
+    padding: 8rem 2rem;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.tools-section.dev-mode {
+    background-color: #1A1A1A;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.carousel-wheel {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.06));
+}
+
+.carousel-item.active {
+    width: 170px;
+    height: 170px;
+    opacity: 1;
+    z-index: 10;
+}
+
+/* Page Navigation Button Configuration */
+.carousel-page-btn {
+    position: absolute;
+    right: 4%;
+    left: auto;
+    top: 38%;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background-color: #A6A6A0;
+    color: #FFFFFF;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 20;
+}
+
+.tools-section.dev-mode .carousel-page-btn {
+    left: 4%;
+    right: auto;
+    background-color: #555555;
+}
+
+.carousel-page-btn:hover {
+    background-color: #1A1A1A;
+    transform: scale(1.05);
+}
+.tools-section.dev-mode .carousel-page-btn:hover {
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+}
+
+/* Informational Text Cards */
+.tool-details-card {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    z-index: 15;
+    margin-top: 2rem;
+}
+
+.tool-title {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #000000;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+    transition: color 0.4s ease;
+}
+
+.tools-section.dev-mode .tool-title {
+    color: #FFFFFF;
+}
+
+.tool-badge-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.tool-badge {
+    background-color: #151FE4;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+}
+
+.tool-description {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #1C1C1C;
+    max-width: 480px;
+    margin: 0 auto;
+    transition: color 0.4s ease;
+}
+
+.tools-section.dev-mode .tool-description {
+    color: #DDDDDD;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel-container { height: 480px; }
+    .carousel-item { width: 65px; height: 65px; }
+    .carousel-item.active { width: 110px; height: 110px; }
+    .tool-title { font-size: 2.2rem; }
+    .tool-description { font-size: 1.1rem; padding: 0 1rem; }
+    
+    .carousel-page-btn { top: 25%; width: 44px; height: 44px; }
+    .tools-section.dev-mode .carousel-page-btn { left: 0px; }
+    .carousel-page-btn { right: 0px; }
+}
+
+/* --- PROJECTS PAGE SPECIFIC STYLES --- */
+.projects-page {
+    background-color: #FDFDF9;
+}
+
+.projects-hero-section {
+    padding: 12rem 2rem 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 160px);
+}
+
+.projects-header-wrap {
+    margin-bottom: 5rem;
+    max-width: 720px;
+}
+
+.projects-main-title {
+    font-size: 5.5rem;
+    font-weight: 900;
+    line-height: 0.85;
+    text-transform: lowercase;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.8rem;
+    color: #1A1A1A;
+}
+
+.projects-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #4A4A4A;
+    font-weight: 500;
+}
+
+/* Hard-edged Neo-Brutalist Grid */
+.projects-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 3.5rem;
+    width: 100%;
+}
+
+.project-card-item {
+    background-color: #FFFFFF;
+    border: 3px solid #1A1A1A;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 0px #1A1A1A;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Offset lift interaction */
+.project-card-item:hover {
+    transform: translate(-6px, -6px);
+    box-shadow: 16px 16px 0px #1A1A1A;
+}
+
+.project-thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    border-bottom: 3px solid #1A1A1A;
+    overflow: hidden;
+}
+
+.project-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease;
+}
+
+.project-card-item:hover .project-img-placeholder {
+    transform: scale(1.03);
+}
+
+/* Sticker Badges on Cards */
+.project-card-badge {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    font-weight: 900;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    padding: 0.45rem 1.2rem;
+    border-radius: 50px;
+    border: 2px solid #1A1A1A;
+    box-shadow: 2px 2px 0 #1A1A1A;
+}
+
+.web-badge-tag { background-color: #2D5BFF; color: #FFFFFF; }
+.va-badge-tag { background-color: #E04B3E; color: #FFFFFF; }
+.design-badge-tag { background-color: #FFFFFF; color: #2D5BFF; }
+
+.project-card-details {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project-card-title {
+    font-size: 1.7rem;
+    font-weight: 900;
+    margin-bottom: 0.8rem;
+    color: #1A1A1A;
+    letter-spacing: -0.01em;
+}
+
+.project-card-desc {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: #4A4A4A;
+    margin-bottom: 1.8rem;
+    flex-grow: 1;
+}
+
+.project-tech-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.project-tech-tags span {
+    background-color: #F3F3F0;
+    color: #1A1A1A;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid #D6D6D2;
+}
+
+/* Navigation State highlight for the active view */
+.active-nav {
+    color: #E24836 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #E24836 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .projects-main-title { font-size: 4.2rem; }
+    .projects-grid-container { gap: 2.5rem; }
+}
+
+@media (max-width: 576px) {
+    .projects-hero-section { padding-top: 10rem; }
+    .projects-main-title { font-size: 3.2rem; }
+    .projects-grid-container { grid-template-columns: 1fr; }
+}
+
+/* Projects Preview Section Styling */
+.projects-preview-section {
+    background-color: #FAF9F5; /* Matches your cream theme */
+    padding: 100px 20px 60px; /* Extra top padding to accommodate the upward stack */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.project-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Stacked Cards Layout --- */
+.stacked-cards-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9; /* Ensures the container holds its height based on the images */
+    margin-bottom: 40px;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+/* Base styling for ALL cards */
+.stack-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 32px; /* Makes corners rounded */
+    overflow: hidden;    /* Clips the images so they don't poke out of the corners */
+box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth animation for the movement */
+    background-color: #ffffff;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; /* Ensures images fill the rounded card perfectly */
+}
+
+/* Position states for the rotation */
+.front-card {
+    z-index: 3;
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.bg-card-1 {
+    z-index: 2;
+    transform: scale(0.95) translateY(-25px);
+    opacity: 0.9;
+}
+
+.bg-card-2 {
+    z-index: 1;
+    transform: scale(0.90) translateY(-50px);
+    opacity: 0.7;
+}
+
+/* Optional: Pause or fan out slightly when the user hovers over the stack */
+.stacked-cards-wrapper:hover .bg-card-1 {
+    transform: scale(0.95) translateY(-35px);
+}
+.stacked-cards-wrapper:hover .bg-card-2 {
+    transform: scale(0.90) translateY(-70px);
+}
+/* Interactive Hover Effect: Fanning out the stack */
+.stacked-cards-wrapper:hover .bg-card-1 {
+    transform: scale(0.95) translateY(-8px);
+}
+
+.stacked-cards-wrapper:hover .bg-card-2 {
+    transform: scale(0.90) translateY(-16px);
+}
+
+.stacked-cards-wrapper:hover .front-card {
+    transform: translateY(4px);
+}
+
+/* --- View Projects Link Styling --- */
+.view-projects-wrapper {
+    margin-top: 20px;
+}
+
+.view-projects-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000000;
+    font-size: 2.2rem;
+    font-weight: 700;
+    gap: 15px;
+    transition: opacity 0.2s ease;
+}
+
+.view-projects-link:hover {
+    opacity: 0.8;
+}
+
+.view-projects-link .link-text {
+    border-bottom: 3px solid #000000;
+    padding-bottom: 2px;
+}
+
+/* Blue circular arrow icon button */
+.arrow-circle {
+    background-color: #1A21E2;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.view-projects-link:hover .arrow-circle {
+    transform: translate(2px, -2px);
+}
+
+.arrow-circle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* --- OVERLAPPING 3D CERTIFICATIONS CAROUSEL (VIEWPORT OPTIMIZED) --- */
+.certifications-section {
+    background-color: #1A1A1A; 
+    min-height: 100vh; /* Forces the section to behave like a dedicated full screen view */
+    padding: 3rem 2rem;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cert-carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cert-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 390px; /* Shrunk from 480px to eliminate the dead vertical space holding down the text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem; /* Tightened up distance to description */
+}
+
+/* Layered Card Foundations */
+.cert-card {
+    position: absolute;
+    width: 540px;
+    max-width: 75%;
+    aspect-ratio: 4 / 2.8;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.55s ease, z-index 0.55s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cert-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 3D Depth States mapping directly to your layout image */
+.cert-card.active {
+    transform: translateX(0) scale(1);
+    z-index: 10;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cert-card.prev {
+    transform: translateX(-38%) scale(0.82);
+    z-index: 5;
+    opacity: 0.65;
+}
+
+.cert-card.next {
+    transform: translateX(40%) scale(0.82);
+    z-index: 5;
+    opacity: 0.65;
+}
+
+.cert-card.prev2 {
+    transform: translateX(-70%) scale(0.68);
+    z-index: 2;
+    opacity: 0.35;
+}
+
+.cert-card.next2 {
+    transform: translateX(70%) scale(0.68);
+    z-index: 2;
+    opacity: 0.35;
+}
+
+.cert-card.hidden {
+    transform: translateX(0) scale(0.5);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Typography Summary Blocks below layout stack */
+.cert-active-details {
+    text-align: center;
+    max-width: 800px;
+    margin-top: 1.5rem; /* Pulled text upward closer to the cards */
+    padding: 0 1rem;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+}
+
+.cert-active-title {
+    font-size: 2rem; /* Sized to perfectly balance without dominating the viewport */
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.cert-active-description {
+    font-size: 1.15rem; /* Made slightly more compact to keep everything above the screen line */
+    line-height: 1.6;
+    color: #CCCCCC;
+    font-weight: 400;
+}
+
+/* Fluid Mobile Scaling Overrides */
+@media (max-width: 768px) {
+    .certifications-section { min-height: auto; padding: 5rem 1rem; }
+    .cert-carousel-track { height: 260px; }
+    .cert-card { width: 340px; }
+    .cert-card.prev { transform: translateX(-25%) scale(0.8); }
+    .cert-card.next { transform: translateX(25%) scale(0.8); }
+    .cert-card.prev2 { transform: translateX(-48%) scale(0.65); }
+    .cert-card.next2 { transform: translateX(48%) scale(0.65); }
+    .cert-active-details { margin-top: 1rem; }
+    .cert-active-title { font-size: 1.4rem; }
+    .cert-active-description { font-size: 1rem; }
+}
+
+/* --- MINIMALIST PORTFOLIO CONTACT PAGE (REFINED) --- */
+.contact-section {
+    background-color: #FBFBFA; /* Exact crisp light off-white tone from image_93c7fd.png */
+    color: #000000;
+    min-height: 100vh;
+    width: 100%;
+    padding: 6rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.contact-page-container {
+    width: 100%;
+    max-width: 1250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Upscaled Geometric Title Typography */
+.contact-giant-title {
+    font-size: 10.5rem; 
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #000000;
+    margin: 0 0 5rem 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    user-select: none;
+}
+
+/* Individual letter hover physics */
+.contact-giant-title .hover-letter {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #000000; /* Stays locked to black */
+}
+
+/* Pure motion pop with NO color change */
+.contact-giant-title .hover-letter:hover {
+    transform: translateY(-8px);
+}
+
+/* Explicit width helper for the space between words */
+.contact-space {
+    display: inline-block;
+    width: 2rem;
+}
+
+/* Asset Container for assets/hero/smiley.png */
+.smiley-o-container {
+    display: inline-block;
+    width: 9.8rem; 
+    height: 9.8rem;
+    
+    /* Increased negative horizontal margin to pull the letters tightly inward, causing an overlap */
+    margin: 0 -1.8rem; 
+    
+    vertical-align: middle;
+    transform: translateY(-0.2rem);
+    position: relative;
+    z-index: 2; /* Keeps the smiley cleanly layered over the letters */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.35);
+}
+
+.smiley-o-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Dynamic lift action for the image element when hovered */
+.smiley-o-container:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* Compact Information Layout Grid */
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(320px, auto)); 
+    column-gap: 6rem; 
+    row-gap: 2.2rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.contact-grid-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.15rem; /* Shrunk font sizing for a cleaner silhouette */
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #1A1A1A;
+}
+
+.contact-anchor-wrapper {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Smaller Minimalist Icon Boxes */
+.contact-icon-box {
+    width: 38px; /* Compact container profile */
+    height: 38px;
+    background-color: #EFEFEF; 
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.2rem;
+    color: #555555; /* All icons (including Instagram) share this layout style uniformly */
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-icon-box svg {
+    width: 19px; /* Scaled down inner geometries */
+    height: 19px;
+}
+
+/* Subtle link hover interactions */
+.contact-anchor-wrapper:hover .contact-icon-box {
+    background-color: #E5E5E5;
+    color: #000000;
+}
+
+.contact-text-value {
+    white-space: nowrap;
+}
+
+.link-highlight {
+    text-underline-offset: 5px;
+}
+
+.contact-anchor-wrapper:hover .link-highlight {
+    text-decoration: underline;
+}
+
+/* Responsive Adaptive Compressions */
+@media (max-width: 1200px) {
+    .contact-giant-title { font-size: 8rem; }
+    .smiley-o-container { width: 7.5rem; height: 7.5rem; margin: 0 -0.3rem; }
+}
+
+@media (max-width: 992px) {
+    .contact-giant-title { font-size: 6rem; margin-bottom: 4rem; }
+    .smiley-o-container { width: 5.6rem; height: 5.6rem; margin: 0 -0.2rem; }
+    .contact-space { width: 1.5rem; }
+    .contact-info-grid { grid-template-columns: 1fr; row-gap: 1.8rem; max-width: 400px; margin: 0 auto; }
+}
+
+@media (max-width: 576px) {
+    .contact-giant-title { font-size: 3.8rem; }
+    .smiley-o-container { width: 3.6rem; height: 3.6rem; margin: 0 -0.1rem; }
+    .contact-space { width: 0.8rem; }
+    .contact-grid-item { font-size: 1.05rem; }
+    .contact-icon-box { width: 34px; height: 34px; margin-right: 0.8rem; }
+    .contact-icon-box svg { width: 16px; height: 16px; }
+}
+
+/* Fixed the cut-off style rule at the end of your file */
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 1. The Pinned Scrolling Container Track */
+.tools-pin-wrapper {
+    position: relative;
+    height: 220vh; 
+    width: 100%;
+}
+
+/* 2. The Main Tools Layout Frame */
+.tools-section {
+    position: sticky !important;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Evenly spreads Heading, Carousel, and Info Text */
+    align-items: center;
+    padding: 6rem 2rem; /* Creates safe padding zones at top and bottom */
+    overflow: hidden;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+/* 3. Sleek, Centered Section Heading Layout Style */
+.tools-main-heading {
+    font-size: 2.25rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    margin: 0 0 2rem 0;
+    transition: color 0.4s ease, opacity 0.3s ease;
+}
+
+/* 4. Fix Overlap: Give the carousel viewport explicit height and isolation */
+.tools-carousel-container {
+    position: relative;
+    width: 100%;
+    height: 280px; /* Locks your rotating logos inside a dedicated space box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0;
+}
+
+/* 5. Clean margin cushion rule for your dynamic details text elements block */
+.tools-info-container, 
+#toolTitle, 
+#toolDescription {
+    margin-top: 1.5rem; /* Pushes descriptive paragraph blocks down away from the logo wheel */
+    text-align: center;
+}
+
+/* ==========================================================================
+   TABLET RESPONSIVE STYLES
+   Covers tablet portrait & landscape (iPad Mini/Air/Pro, Android tablets):
+   roughly 601px to 1024px wide. Sits between the mobile rules (max-width:768px
+   above) and the desktop styles, and also patches the "tablet landscape" gap
+   (769px–1024px) that previously fell straight back to full desktop sizing.
+   ========================================================================== */
+
+/* ---- Wide tablet / landscape (1025px and down to 901px) ---- */
+@media (max-width: 1024px) and (min-width: 901px) {
+    .navbar { padding: 1.75rem 1.5rem; }
+    .nav-links { gap: 2rem; }
+    .navbar a { font-size: 1rem; }
+
+    .hero-section { padding: 11rem 2rem 5rem 2rem; }
+    .portfolio-container { font-size: 20vw; }
+    .hero-subtitle { font-size: 2.9vw; margin-bottom: -3.3vw; }
+
+    .about-container { gap: 2.5rem; }
+    .about-title { font-size: 4.6rem; }
+    .about-body-text { font-size: 1.1rem; }
+    .polaroid-frame-container { width: 300px; }
+    .slanted-blue-backdrop { width: 300px; height: 380px; }
+
+    .carousel-container { height: 500px; }
+    .tool-title { font-size: 2.7rem; }
+    .tool-description { font-size: 1.25rem; }
+
+    .cert-card { width: 460px; }
+
+    .contact-giant-title { font-size: 6.5rem; }
+    .smiley-o-container { width: 6rem; height: 6rem; }
+}
+
+/* ---- Core tablet range: portrait iPads & small Android tablets ---- */
+@media (max-width: 900px) and (min-width: 601px) {
+
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    /* --- Navbar: switch to the hamburger menu on tablets too --- */
+    .navbar {
+        padding: 1.5rem 1.75rem;
+        justify-content: flex-end;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-links.mobile-active {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.98);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+    }
+
+    .nav-links.mobile-active a {
+        font-size: 2.2rem;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        z-index: 9999;
+    }
+
+    /* --- Hero --- */
+    .hero-section {
+        padding: 9rem 2rem 5rem 2rem;
+        min-height: auto;
+    }
+
+    .hero-wrapper {
+        width: 100%;
+        align-items: center;
+    }
+
+    .hero-subtitle {
+        font-size: 3rem;
+        margin-bottom: -0.6rem;
+    }
+
+    .portfolio-container {
+        font-size: 15rem;
+        justify-content: center;
+    }
+
+    .hero-footer {
+        font-size: 0.95rem;
+        padding: 1.5rem 2rem;
+    }
+
+    /* --- About --- */
+    .about-section { padding: 6rem 2rem 9rem 2rem; }
+
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 4.5rem;
+    }
+
+    .about-title { font-size: 4.2rem; }
+    .about-contact-row { justify-content: center; gap: 1.5rem; }
+    .about-body-text { font-size: 1.1rem; }
+
+    .about-graphics-right {
+        width: 100%;
+        max-width: 380px;
+        height: 420px;
+        margin-top: 60px;
+    }
+
+    .slanted-blue-backdrop {
+        width: 300px;
+        height: 380px;
+        left: 50%;
+        margin-left: -150px;
+        transform: rotate(-6deg) translate(0px, -15px);
+    }
+
+    .about-marquee-ribbon { bottom: 2.5rem; }
+
+    /* --- Tools carousel --- */
+    .tools-pin-wrapper { height: auto !important; }
+
+    section#tools {
+        height: auto !important;
+        position: relative !important;
+        padding: 5rem 2rem !important;
+    }
+
+    .carousel-container { height: 460px; }
+    .carousel-item { width: 80px; height: 80px; }
+    .carousel-item.active { width: 140px; height: 140px; }
+    .tool-title { font-size: 2.6rem; }
+    .tool-description { font-size: 1.2rem; }
+
+    /* --- Projects preview --- */
+    .stacked-cards-wrapper { max-width: 620px; }
+    .view-projects-link { font-size: 1.8rem; }
+
+    /* --- Certifications --- */
+    .cert-carousel-track { height: 320px; }
+    .cert-card { width: 420px; }
+    .cert-card.prev { transform: translateX(-30%) scale(0.8); }
+    .cert-card.next { transform: translateX(32%) scale(0.8); }
+    .cert-card.prev2 { transform: translateX(-55%) scale(0.65); }
+    .cert-card.next2 { transform: translateX(55%) scale(0.65); }
+    .cert-active-title { font-size: 1.7rem; }
+    .cert-active-description { font-size: 1.05rem; }
+
+    /* --- Contact --- */
+    .contact-giant-title { font-size: 5.5rem; margin-bottom: 3.5rem; }
+    .smiley-o-container { width: 5rem; height: 5rem; margin: 0 -0.2rem; }
+    .contact-info-grid {
+        grid-template-columns: 1fr;
+        row-gap: 1.6rem;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+    .contact-grid-item { font-size: 1.1rem; justify-content: center; }
+}
