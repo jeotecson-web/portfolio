@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Jeo Mayku Tecson - Portfolio</title>
+<link rel="icon" type="image/x-icon" href="assets/pixelfavicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -642,12 +643,14 @@ html,body{
 /* ---------------- Desktop Widgets ---------------- */
 #widgets-layer{
   position:absolute; top:44px; left:18px; z-index:12;
-  display:flex; flex-direction:column; gap:14px;
-  width:224px;
+  width:480px;
+  height:calc(100vh - 44px - 110px);
   pointer-events:none;
 }
 #widgets-layer .widget{ pointer-events:auto; }
 .widget{
+  position:absolute;
+  width:224px;
   background:var(--glass-light);
   backdrop-filter:blur(22px) saturate(180%);
   -webkit-backdrop-filter:blur(22px) saturate(180%);
@@ -656,20 +659,26 @@ html,body{
   padding:14px 16px 16px;
   box-shadow:0 14px 34px rgba(10,8,25,0.28);
   animation:winIn 0.3s cubic-bezier(.2,.9,.3,1.2);
+  z-index:1;
 }
+.widget.widget-dragging{
+  transition:none;
+  box-shadow:0 24px 50px rgba(10,8,25,0.42);
+  cursor:grabbing;
+}
+.widget.widget-dragging .widget-header{ cursor:grabbing; }
 .widget-header{
   font-size:10.5px; text-transform:uppercase; letter-spacing:.07em;
   color:var(--ink-500); font-weight:700;
   margin-bottom:10px; display:flex; align-items:center; gap:6px;
+  cursor:grab;
+  touch-action:none;
 }
 .widget-dot{
   width:6px; height:6px; border-radius:50%; background:#28c840; display:inline-block;
   box-shadow:0 0 0 3px rgba(40,200,64,0.18);
 }
 .widget-icon{ flex:0 0 auto; color:var(--ink-500); display:block; }
-.widget-header{ cursor:grab; touch-action:none; }
-.widget-header:active{ cursor:grabbing; }
-.widget.widget-dragging{ z-index:15; opacity:0.92; box-shadow:0 20px 46px rgba(10,8,25,0.4); transition:none; }
 
 /* Music player widget */
 .music-body{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
@@ -827,11 +836,15 @@ html,body{
     overflow-y:auto; -webkit-overflow-scrolling:touch;
   }
   #widgets-layer{
+    display:flex;
     position:static; order:1; width:100%; left:auto; top:auto;
     padding:52px 16px 4px; margin:0;
     flex-direction:row; flex-wrap:wrap; gap:10px;
+    height:auto;
   }
   #widgets-layer .widget{ flex:1 1 150px; }
+  .widget{ position:static !important; left:auto !important; top:auto !important; z-index:auto !important; }
+  .widget-header{ cursor:default; }
   #icons{
     order:2; position:static; inset:auto; height:auto;
     display:grid; grid-template-columns:repeat(4,1fr);
@@ -855,7 +868,7 @@ html,body{
   <div class="boot-logo">
     <img src="assets/about/profile-about.png" alt="Jeo Mayku">
   </div>
-  <div class="boot-name">Jeo Mayku's Portfolio</div>
+  <div class="boot-name">Logging in to Jeo Mayku's Portfolio...</div>
   <div class="boot-bar"><div class="boot-bar-fill"></div></div>
 </div>
 
@@ -886,7 +899,7 @@ html,body{
 
   <!-- Desktop Widgets -->
   <div id="widgets-layer">
-    <div class="widget widget-music">
+    <div class="widget widget-music" data-widget-id="music">
       <div class="widget-header"><span class="widget-dot"></span> Now Playing</div>
       <div class="music-body">
         <div class="vinyl" id="vinyl"></div>
@@ -903,21 +916,23 @@ html,body{
       </div>
     </div>
 
-    <div class="widget widget-quote">
+    <div class="widget widget-coffee" data-widget-id="coffee">
       <div class="widget-header">
-        <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.6h16a1.4 1.4 0 0 1 1.4 1.4v7.4a1.4 1.4 0 0 1-1.4 1.4H9.6L5 19.4V15.8H4A1.4 1.4 0 0 1 2.6 14.4V7A1.4 1.4 0 0 1 4 5.6z"/></svg>
-        Quote
+        <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h12v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M17 10.5h1.6a2.3 2.3 0 0 1 0 4.6H17"/><path d="M8.4 6c-.6-.9-.4-1.5.2-2.3M12 6c-.6-.9-.4-1.5.2-2.3"/></svg>
+        Coffee Counter
       </div>
-      <div class="quote-text" id="quote-text">"..."</div>
-      <button class="quote-refresh" id="quote-refresh">↻ New quote</button>
+      <div class="coffee-row">
+        <button class="coffee-btn" id="coffee-add" title="Add a cup">+</button>
+        <div>
+          <div class="coffee-count" id="coffee-count">0</div>
+          <div class="coffee-sub">cups today</div>
+        </div>
+      </div>
+      <div class="coffee-cups" id="coffee-cups"></div>
+      <button class="coffee-reset" id="coffee-reset">↻ reset</button>
     </div>
 
-    <div class="widget widget-status">
-      <div class="widget-header"><span class="widget-dot"></span> Status</div>
-      <div class="status-text" id="status-text">…</div>
-    </div>
-
-    <div class="widget widget-pet">
+    <div class="widget widget-pet" data-widget-id="pet">
       <div class="widget-header">
         <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M9 10.4h.01M15 10.4h.01M8.8 14.4c1 1.1 2.2 1.6 3.2 1.6s2.2-.5 3.2-1.6"/></svg>
         Desk Buddy
@@ -945,29 +960,27 @@ html,body{
       <div class="pet-hint">tap Blip to say hi</div>
     </div>
 
-    <div class="widget widget-coffee">
-      <div class="widget-header">
-        <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h12v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M17 10.5h1.6a2.3 2.3 0 0 1 0 4.6H17"/><path d="M8.4 6c-.6-.9-.4-1.5.2-2.3M12 6c-.6-.9-.4-1.5.2-2.3"/></svg>
-        Coffee Counter
-      </div>
-      <div class="coffee-row">
-        <button class="coffee-btn" id="coffee-add" title="Add a cup">+</button>
-        <div>
-          <div class="coffee-count" id="coffee-count">0</div>
-          <div class="coffee-sub">cups today</div>
-        </div>
-      </div>
-      <div class="coffee-cups" id="coffee-cups"></div>
-      <button class="coffee-reset" id="coffee-reset">↻ reset</button>
-    </div>
-
-    <div class="widget widget-calendar">
+    <div class="widget widget-calendar" data-widget-id="calendar">
       <div class="widget-header"><span class="widget-dot"></span> Calendar</div>
       <div class="cal-head">
         <span class="cal-month" id="cal-month">Month</span>
         <span class="cal-year" id="cal-year">Year</span>
       </div>
       <div class="cal-grid" id="cal-grid"></div>
+    </div>
+
+    <div class="widget widget-status" data-widget-id="status">
+      <div class="widget-header"><span class="widget-dot"></span> Status</div>
+      <div class="status-text" id="status-text">…</div>
+    </div>
+
+    <div class="widget widget-quote" data-widget-id="quote">
+      <div class="widget-header">
+        <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.6h16a1.4 1.4 0 0 1 1.4 1.4v7.4a1.4 1.4 0 0 1-1.4 1.4H9.6L5 19.4V15.8H4A1.4 1.4 0 0 1 2.6 14.4V7A1.4 1.4 0 0 1 4 5.6z"/></svg>
+        Quote
+      </div>
+      <div class="quote-text" id="quote-text">"..."</div>
+      <button class="quote-refresh" id="quote-refresh">↻ New quote</button>
     </div>
   </div>
 
@@ -1423,6 +1436,144 @@ function makeIconDraggable(item, id){
     window.addEventListener('touchmove', onTouchMove, {passive:false});
     window.addEventListener('touchend', onTouchEnd);
   }, {passive:true});
+}
+
+/* ---------- Draggable desktop widgets ---------- */
+/* Drag handle = the widget's header row. Positions persist per-browser via localStorage. */
+const WIDGET_POS_KEY = 'jl-portfolio-widget-positions-v1';
+const WIDGET_DEFAULTS = {
+  music:    { x:0,   y:0   },
+  coffee:   { x:238, y:0   },
+  pet:      { x:0,   y:168 },
+  calendar: { x:238, y:172 },
+  status:   { x:0,   y:336 },
+  quote:    { x:238, y:388 }
+};
+let widgetZTop = 50;
+
+function loadWidgetPositions(){
+  try{ return JSON.parse(localStorage.getItem(WIDGET_POS_KEY) || '{}'); }
+  catch(e){ return {}; }
+}
+function saveWidgetPosition(id, x, y){
+  const pos = loadWidgetPositions();
+  pos[id] = { x, y };
+  try{ localStorage.setItem(WIDGET_POS_KEY, JSON.stringify(pos)); }catch(e){}
+}
+
+function initWidgets(){
+  const layer = document.getElementById('widgets-layer');
+  if(!layer) return;
+  const saved = loadWidgetPositions();
+  const widgets = layer.querySelectorAll('.widget[data-widget-id]');
+  widgets.forEach(w=>{
+    const id = w.dataset.widgetId;
+    const pos = saved[id] || WIDGET_DEFAULTS[id] || { x:0, y:0 };
+    w.style.left = pos.x+'px';
+    w.style.top = pos.y+'px';
+    w.style.zIndex = ++widgetZTop;
+    makeWidgetDraggable(w, id, layer);
+  });
+}
+
+function makeWidgetDraggable(widget, id, layer){
+  const handle = widget.querySelector('.widget-header') || widget;
+  let dragging = false;
+  let startClientX = 0, startClientY = 0;
+  let startLeft = 0, startTop = 0;
+  const DRAG_THRESHOLD = 4;
+
+  function containerRect(){ return layer.getBoundingClientRect(); }
+
+  function beginDrag(){
+    dragging = true;
+    widget.classList.add('widget-dragging');
+    widget.style.zIndex = ++widgetZTop;
+    const rect = widget.getBoundingClientRect();
+    const cRect = containerRect();
+    startLeft = rect.left - cRect.left;
+    startTop = rect.top - cRect.top;
+    widget.style.left = startLeft+'px';
+    widget.style.top = startTop+'px';
+  }
+
+  function moveTo(clientX, clientY){
+    const dx = clientX - startClientX;
+    const dy = clientY - startClientY;
+    const cRect = containerRect();
+    let newLeft = startLeft + dx;
+    let newTop = startTop + dy;
+    newLeft = Math.max(0, Math.min(newLeft, Math.max(0, cRect.width - widget.offsetWidth)));
+    newTop = Math.max(0, Math.min(newTop, Math.max(0, cRect.height - widget.offsetHeight)));
+    widget.style.left = newLeft+'px';
+    widget.style.top = newTop+'px';
+  }
+
+  function endDrag(){
+    if(dragging){
+      widget.classList.remove('widget-dragging');
+      saveWidgetPosition(id, parseFloat(widget.style.left), parseFloat(widget.style.top));
+    }
+    dragging = false;
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
+    window.removeEventListener('touchmove', onTouchMove);
+    window.removeEventListener('touchend', onTouchEnd);
+  }
+
+  function onMouseMove(e){
+    if(!dragging){
+      if(Math.abs(e.clientX-startClientX) > DRAG_THRESHOLD || Math.abs(e.clientY-startClientY) > DRAG_THRESHOLD){
+        beginDrag();
+      } else return;
+    }
+    moveTo(e.clientX, e.clientY);
+  }
+  function onMouseUp(){ endDrag(); }
+
+  handle.addEventListener('mousedown', (e)=>{
+    if(isMobileView()) return;
+    if(e.button !== 0) return;
+    if(e.target.closest('button')) return;
+    startClientX = e.clientX; startClientY = e.clientY;
+    const rect = widget.getBoundingClientRect();
+    const cRect = containerRect();
+    startLeft = rect.left - cRect.left;
+    startTop = rect.top - cRect.top;
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  });
+
+  function onTouchMove(e){
+    const t = e.touches[0];
+    if(!dragging){
+      if(Math.abs(t.clientX-startClientX) > DRAG_THRESHOLD || Math.abs(t.clientY-startClientY) > DRAG_THRESHOLD){
+        beginDrag();
+      } else return;
+    }
+    e.preventDefault();
+    moveTo(t.clientX, t.clientY);
+  }
+  function onTouchEnd(){ endDrag(); }
+
+  handle.addEventListener('touchstart', (e)=>{
+    if(isMobileView()) return;
+    if(e.target.closest('button')) return;
+    const t = e.touches[0];
+    startClientX = t.clientX; startClientY = t.clientY;
+    const rect = widget.getBoundingClientRect();
+    const cRect = containerRect();
+    startLeft = rect.left - cRect.left;
+    startTop = rect.top - cRect.top;
+    window.addEventListener('touchmove', onTouchMove, {passive:false});
+    window.addEventListener('touchend', onTouchEnd);
+  }, {passive:true});
+
+  // bring to front on any interaction within the widget body too
+  widget.addEventListener('mousedown', ()=>{
+    if(isMobileView()) return;
+    widget.style.zIndex = ++widgetZTop;
+  });
 }
 
 /* ---------- Dock ---------- */
@@ -2229,7 +2380,7 @@ function buildMenuItems(menuKey){
       { label:'Change Wallpaper\u2026', action:()=> openWallpaperPicker() },
       { label: hidden ? 'Show Desktop Widgets' : 'Hide Desktop Widgets', action:()=>{
           if(!widgetsLayer) return;
-          widgetsLayer.style.display = hidden ? 'flex' : 'none';
+          widgetsLayer.style.display = hidden ? '' : 'none';
         } },
       { sep:true },
       { label:'Enter Full Screen', shortcut:'\u2303\u2318F', action:()=>{
@@ -2421,6 +2572,9 @@ function renderCalendar(){
   gridEl.innerHTML = html;
 }
 renderCalendar();
+
+/* Initialize draggable widget positions last, after all widget content is built */
+initWidgets();
 </script>
 </body>
 </html>
