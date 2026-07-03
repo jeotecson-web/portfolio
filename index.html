@@ -102,12 +102,46 @@ html,body{
   z-index:9000;
 }
 #menubar .left, #menubar .right{ display:flex; align-items:center; gap:16px; }
-#menubar .app-name{ font-weight:700; }
-#menubar .menu-item{ opacity:0.75; font-weight:500; display:none; }
-@media (min-width:700px){ #menubar .menu-item{ display:inline; } }
+#menubar .app-name{ font-weight:700; cursor:pointer; }
+#menubar .menu-item{
+  opacity:0.75; font-weight:500; display:none;
+  position:relative; cursor:pointer; padding:4px 2px;
+  border-radius:4px; transition:opacity .12s ease, background .12s ease;
+}
+@media (min-width:700px){ #menubar .menu-item{ display:inline-flex; align-items:center; } }
+#menubar .menu-item:hover{ opacity:1; }
+#menubar .menu-item.menu-open{ opacity:1; background:rgba(139,123,216,0.18); }
 #menubar .right{ font-weight:500; }
 #menubar .icon{ font-size:12px; opacity:0.85; }
-#clock{ font-variant-numeric:tabular-nums; min-width:64px; text-align:right;}
+#clock{ font-variant-numeric:tabular-nums; min-width:64px; text-align:right; cursor:pointer;}
+
+/* Menu bar dropdowns */
+.menu-dropdown{
+  position:fixed; top:28px; z-index:19500;
+  min-width:210px;
+  background:rgba(250,249,255,0.97);
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  border:1px solid rgba(0,0,0,0.08);
+  border-radius:10px;
+  box-shadow:0 14px 34px rgba(10,8,25,0.3);
+  padding:6px;
+  display:none;
+  animation:menuIn 0.12s ease;
+}
+.menu-dropdown.open{ display:block; }
+@keyframes menuIn{ from{ opacity:0; transform:translateY(-4px); } to{ opacity:1; transform:translateY(0); } }
+.menu-dropdown .md-item{
+  padding:7px 10px; border-radius:6px; cursor:pointer;
+  font-size:13px; font-weight:500; color:var(--ink-900);
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  white-space:nowrap;
+}
+.menu-dropdown .md-item:hover{ background:rgba(139,123,216,0.16); }
+.menu-dropdown .md-item.disabled{ color:var(--ink-300); cursor:default; }
+.menu-dropdown .md-item.disabled:hover{ background:none; }
+.menu-dropdown .md-shortcut{ font-size:11px; color:var(--ink-300); font-family:var(--font-mono); }
+.menu-dropdown .md-sep{ height:1px; background:rgba(0,0,0,0.08); margin:5px 4px; }
 
 /* ---------------- Desktop Icons ---------------- */
 #icons{
@@ -256,6 +290,34 @@ html,body{
   width:100vw !important; height:calc(100vh - 32px - 74px) !important;
   border-radius:0;
 }
+
+/* ---------------- iOS-style app screen header (mobile only) ---------------- */
+.ios-grabber{
+  width:36px; height:5px; border-radius:3px;
+  background:rgba(0,0,0,0.18);
+  margin:8px auto 0;
+  flex:0 0 auto;
+}
+.mobile-header{
+  height:50px; flex:0 0 auto;
+  background:var(--window-header);
+  display:flex; align-items:center; gap:4px;
+  padding:0 4px 0 2px;
+  cursor:default;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.ios-back{
+  border:none; background:transparent; cursor:pointer;
+  width:42px; height:42px; flex:0 0 auto;
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; font-weight:600; line-height:1;
+  color:var(--accent-violet);
+  font-family:var(--font-body);
+  padding:0;
+}
+.ios-back:active{ opacity:0.55; }
+.ios-header-spacer{ width:42px; flex:0 0 auto; }
+.mobile-header .win-title{ margin-right:0; font-size:15px; font-weight:700; }
 
 /* Finder-style grid (Projects window) */
 .finder-toolbar{
@@ -605,6 +667,9 @@ html,body{
   box-shadow:0 0 0 3px rgba(40,200,64,0.18);
 }
 .widget-icon{ flex:0 0 auto; color:var(--ink-500); display:block; }
+.widget-header{ cursor:grab; touch-action:none; }
+.widget-header:active{ cursor:grabbing; }
+.widget.widget-dragging{ z-index:15; opacity:0.92; box-shadow:0 20px 46px rgba(10,8,25,0.4); transition:none; }
 
 /* Music player widget */
 .music-body{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
@@ -668,6 +733,65 @@ html,body{
 /* Status widget */
 .status-text{ font-size:12.5px; line-height:1.55; color:var(--ink-700); }
 
+/* Pixel pet widget */
+.pet-stage{
+  position:relative; height:64px; border-radius:12px; margin-bottom:8px;
+  background:linear-gradient(180deg, rgba(139,123,216,0.1), rgba(127,224,207,0.1));
+  overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
+}
+.pet-guy{
+  width:34px; height:34px; margin-bottom:6px;
+  transition:transform .18s ease;
+  animation:petBob 2.4s ease-in-out infinite;
+  cursor:pointer;
+}
+.pet-guy:active{ transform:scale(0.88); }
+@keyframes petBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+.pet-guy.pet-happy{ animation:petJump 0.5s ease; }
+@keyframes petJump{ 0%{ transform:translateY(0) rotate(0); } 30%{ transform:translateY(-14px) rotate(-8deg); } 60%{ transform:translateY(0) rotate(6deg); } 100%{ transform:translateY(0) rotate(0); } }
+.pet-sparkle{
+  position:absolute; font-size:12px; opacity:0; pointer-events:none;
+  animation:petSparkle 0.7s ease forwards;
+}
+@keyframes petSparkle{ 0%{ opacity:1; transform:translateY(0) scale(0.6); } 100%{ opacity:0; transform:translateY(-22px) scale(1.1); } }
+.pet-row{ display:flex; align-items:center; justify-content:space-between; }
+.pet-name{ font-size:12.5px; font-weight:700; color:var(--ink-900); }
+.pet-mood{ font-size:11px; color:var(--ink-500); }
+.pet-hint{ font-size:9.5px; color:var(--ink-300); text-align:center; margin-top:6px; }
+
+/* Coffee counter widget */
+.coffee-row{ display:flex; align-items:center; gap:12px; }
+.coffee-count{
+  font-family:var(--font-display); font-weight:800; font-size:28px; color:var(--ink-900);
+  line-height:1; min-width:34px;
+}
+.coffee-sub{ font-size:11px; color:var(--ink-500); margin-top:2px; }
+.coffee-cups{ display:flex; gap:4px; margin-top:8px; flex-wrap:wrap; }
+.coffee-cup{ font-size:14px; opacity:0.9; animation:winIn 0.25s ease; }
+.coffee-btn{
+  border:none; cursor:pointer; border-radius:10px;
+  width:44px; height:44px; flex:0 0 auto;
+  background:var(--ink-900); color:#fff; font-size:19px;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .12s ease, background .12s ease;
+}
+.coffee-btn:hover{ background:var(--ink-700); transform:scale(1.06); }
+.coffee-btn:active{ transform:scale(0.94); }
+.coffee-reset{
+  border:none; background:transparent; cursor:pointer; padding:0; margin-top:8px;
+  font-size:11px; font-weight:700; color:var(--accent-violet); font-family:var(--font-body);
+}
+
+/* Mini calendar widget */
+.cal-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
+.cal-month{ font-size:12.5px; font-weight:700; color:var(--ink-900); }
+.cal-year{ font-size:11px; color:var(--ink-500); }
+.cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:3px; text-align:center; }
+.cal-dow{ font-size:9px; font-weight:700; color:var(--ink-300); text-transform:uppercase; padding-bottom:3px; }
+.cal-day{ font-size:10.5px; color:var(--ink-700); padding:3px 0; border-radius:5px; }
+.cal-day.cal-today{ background:var(--accent-violet); color:#fff; font-weight:700; }
+.cal-day.cal-pad{ visibility:hidden; }
+
 /* ---------------- Responsive ---------------- */
 @media (max-width:700px){
   #icons{ inset:28px 0 84px 0; }
@@ -689,11 +813,39 @@ html,body{
   .widget{ padding:11px 12px 12px; border-radius:13px; }
   .vinyl{ width:42px; height:42px; }
   .track-name{ font-size:12px; }
+  .pet-stage{ height:52px; }
+  .coffee-count{ font-size:22px; }
+  .coffee-btn{ width:38px; height:38px; }
+
+  /* ---- iPhone-style home screen ---- */
+  #menu-app-name{ display:none; }
+  #dock{ max-width:94vw; overflow-x:auto; -ms-overflow-style:none; scrollbar-width:none; }
+  #dock::-webkit-scrollbar{ display:none; }
+  .blob{ position:fixed; }
+  #desktop{
+    display:flex; flex-direction:column;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+  #widgets-layer{
+    position:static; order:1; width:100%; left:auto; top:auto;
+    padding:52px 16px 4px; margin:0;
+    flex-direction:row; flex-wrap:wrap; gap:10px;
+  }
+  #widgets-layer .widget{ flex:1 1 150px; }
+  #icons{
+    order:2; position:static; inset:auto; height:auto;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:22px 4px; padding:14px 12px 118px;
+  }
+  .icon-item{
+    position:static !important; left:auto !important; top:auto !important; right:auto !important;
+    width:auto !important; touch-action:auto;
+  }
+  .icon-item:hover, .icon-item.selected{ background:none; }
 }
 @media (max-width:420px){
   .icon-item{ width:64px; }
   .finder-grid{ grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); }
-  #widgets-layer{ display:none; }
 }
 </style>
 </head>
@@ -715,18 +867,19 @@ html,body{
   <!-- Menu Bar -->
   <div id="menubar">
     <div class="left">
-      <span class="app-name" id="menu-app-name">Jeo's Portfolio</span>
-      <span class="menu-item">File</span>
-      <span class="menu-item">Edit</span>
-      <span class="menu-item">View</span>
-      <span class="menu-item">Go</span>
-      <span class="menu-item">Window</span>
-      <span class="menu-item">Help</span>
+      <span class="app-name" id="menu-app-name" data-menu="apple">Jeo's Portfolio</span>
+      <span class="menu-item" data-menu="file">File</span>
+      <span class="menu-item" data-menu="edit">Edit</span>
+      <span class="menu-item" data-menu="view">View</span>
+      <span class="menu-item" data-menu="go">Go</span>
+      <span class="menu-item" data-menu="window">Window</span>
+      <span class="menu-item" data-menu="help">Help</span>
     </div>
     <div class="right">
-      <span id="clock">--:--</span>
+      <span id="clock" data-menu="clock">--:--</span>
     </div>
   </div>
+  <div id="menu-dropdown-layer"></div>
 
   <!-- Desktop Icons -->
   <div id="icons"></div>
@@ -762,6 +915,59 @@ html,body{
     <div class="widget widget-status">
       <div class="widget-header"><span class="widget-dot"></span> Status</div>
       <div class="status-text" id="status-text">…</div>
+    </div>
+
+    <div class="widget widget-pet">
+      <div class="widget-header">
+        <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M9 10.4h.01M15 10.4h.01M8.8 14.4c1 1.1 2.2 1.6 3.2 1.6s2.2-.5 3.2-1.6"/></svg>
+        Desk Buddy
+      </div>
+      <div class="pet-stage" id="pet-stage">
+        <svg class="pet-guy" id="pet-guy" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="20" cy="34" rx="9" ry="2.4" fill="rgba(20,15,40,0.12)"/>
+          <circle cx="20" cy="19" r="14" fill="#8b7bd8"/>
+          <circle cx="20" cy="19" r="14" fill="url(#petShine)"/>
+          <circle cx="15" cy="18" r="2.1" fill="#181524"/>
+          <circle cx="25" cy="18" r="2.1" fill="#181524"/>
+          <path id="pet-mouth" d="M15.5 24c1.5 1.6 3.2 2.4 4.5 2.4s3-.8 4.5-2.4" stroke="#181524" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <defs>
+            <radialGradient id="petShine" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="pet-row">
+        <span class="pet-name">Blip</span>
+        <span class="pet-mood" id="pet-mood">feeling curious</span>
+      </div>
+      <div class="pet-hint">tap Blip to say hi</div>
+    </div>
+
+    <div class="widget widget-coffee">
+      <div class="widget-header">
+        <svg class="widget-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h12v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M17 10.5h1.6a2.3 2.3 0 0 1 0 4.6H17"/><path d="M8.4 6c-.6-.9-.4-1.5.2-2.3M12 6c-.6-.9-.4-1.5.2-2.3"/></svg>
+        Coffee Counter
+      </div>
+      <div class="coffee-row">
+        <button class="coffee-btn" id="coffee-add" title="Add a cup">+</button>
+        <div>
+          <div class="coffee-count" id="coffee-count">0</div>
+          <div class="coffee-sub">cups today</div>
+        </div>
+      </div>
+      <div class="coffee-cups" id="coffee-cups"></div>
+      <button class="coffee-reset" id="coffee-reset">↻ reset</button>
+    </div>
+
+    <div class="widget widget-calendar">
+      <div class="widget-header"><span class="widget-dot"></span> Calendar</div>
+      <div class="cal-head">
+        <span class="cal-month" id="cal-month">Month</span>
+        <span class="cal-year" id="cal-year">Year</span>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
     </div>
   </div>
 
@@ -1003,6 +1209,10 @@ let zTop = 100;
 let winCount = 0;
 const openWindows = {}; // id -> {el, minimized}
 
+function isMobileView(){
+  return window.matchMedia('(max-width: 700px)').matches;
+}
+
 function el(tag, cls, html){
   const e = document.createElement(tag);
   if(cls) e.className = cls;
@@ -1096,11 +1306,13 @@ DESKTOP_ICONS.forEach((icon, idx) => {
 
   item.addEventListener('click', (e)=>{
     if(item.dataset.justDragged === '1'){ item.dataset.justDragged = '0'; return; }
+    if(isMobileView()){ openApp(icon.id); return; }
     document.querySelectorAll('.icon-item').forEach(i=>i.classList.remove('selected'));
     item.classList.add('selected');
   });
   item.addEventListener('dblclick', (e)=>{
     if(item.dataset.justDragged === '1') return;
+    if(isMobileView()) return;
     openApp(icon.id);
   });
   makeIconDraggable(item, icon.id);
@@ -1113,6 +1325,7 @@ document.getElementById('desktop').addEventListener('click', (e)=>{
 });
 
 /* ---------- Draggable desktop icons (mouse: click+drag / touch: long-press+drag) ---------- */
+/* Disabled entirely on mobile — the iPhone-style home screen uses a fixed grid and single tap to open. */
 function makeIconDraggable(item, id){
   let dragging = false;
   let longPressTimer = null;
@@ -1173,6 +1386,7 @@ function makeIconDraggable(item, id){
   function onMouseUp(){ endDrag(); }
 
   item.addEventListener('mousedown', (e)=>{
+    if(isMobileView()) return;
     if(e.button !== 0) return;
     startClientX = e.clientX; startClientY = e.clientY;
     const rect = item.getBoundingClientRect();
@@ -1197,6 +1411,7 @@ function makeIconDraggable(item, id){
   function onTouchEnd(){ endDrag(); }
 
   item.addEventListener('touchstart', (e)=>{
+    if(isMobileView()) return;
     const t = e.touches[0];
     startClientX = t.clientX; startClientY = t.clientY;
     const rect = item.getBoundingClientRect();
@@ -1249,6 +1464,7 @@ function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
     return;
   }
   winCount++;
+  const mobile = isMobileView();
   const w = el('div','window');
   w.style.width = (width||520)+'px';
   w.style.height = (height||420)+'px';
@@ -1259,7 +1475,7 @@ function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
   w.style.zIndex = ++zTop;
   w.dataset.winId = id;
 
-  w.innerHTML = `
+  const desktopHeaderHTML = `
     <div class="win-header">
       <div class="traffic">
         <span class="t-close" title="Close"></span>
@@ -1267,49 +1483,89 @@ function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
         <span class="t-max" title="Full Screen"></span>
       </div>
       <div class="win-title">${title}</div>
-    </div>
+    </div>`;
+  const mobileHeaderHTML = `
+    <div class="ios-grabber"></div>
+    <div class="win-header mobile-header">
+      <button class="ios-back" type="button" aria-label="Close">‹</button>
+      <div class="win-title">${title}</div>
+      <span class="ios-header-spacer"></span>
+    </div>`;
+
+  w.innerHTML = `
+    ${mobile ? mobileHeaderHTML : desktopHeaderHTML}
     <div class="win-body">${bodyHTML}</div>
   `;
   document.getElementById('desktop').appendChild(w);
-  openWindows[id] = { el:w, minimized:false };
+  openWindows[id] = { el:w, minimized:false, title:title };
   setDockRunning(id, true);
 
   // focus on mousedown anywhere in window
   w.addEventListener('mousedown', ()=> focusWindow(id));
   w.addEventListener('touchstart', ()=> focusWindow(id), {passive:true});
 
-  // traffic lights
-  w.querySelector('.t-close').addEventListener('click', (e)=>{ e.stopPropagation(); closeWindow(id); });
-  w.querySelector('.t-min').addEventListener('click', (e)=>{ e.stopPropagation(); minimizeWindow(id); });
-  w.querySelector('.t-max').addEventListener('click', (e)=>{ e.stopPropagation(); toggleMaximize(id); });
+  if(mobile){
+    // iOS-style header: back button closes the app screen, swipe down to dismiss
+    const backBtn = w.querySelector('.ios-back');
+    if(backBtn) backBtn.addEventListener('click', (e)=>{ e.stopPropagation(); closeWindow(id); });
+    const mh = w.querySelector('.mobile-header');
+    let touchStartY = null;
+    if(mh){
+      mh.addEventListener('touchstart', (e)=>{ touchStartY = e.touches[0].clientY; }, {passive:true});
+      mh.addEventListener('touchmove', (e)=>{
+        if(touchStartY === null) return;
+        const dy = e.touches[0].clientY - touchStartY;
+        if(dy > 0){
+          w.style.transition = 'none';
+          w.style.transform = `translateY(${Math.min(dy,220)}px)`;
+        }
+      }, {passive:true});
+      mh.addEventListener('touchend', (e)=>{
+        if(touchStartY === null) return;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        w.style.transition = 'transform .2s ease';
+        if(dy > 100){ closeWindow(id); }
+        else { w.style.transform = 'translateY(0)'; }
+        touchStartY = null;
+      });
+    }
+  } else {
+    // traffic lights
+    const tClose = w.querySelector('.t-close');
+    const tMin = w.querySelector('.t-min');
+    const tMax = w.querySelector('.t-max');
+    if(tClose) tClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeWindow(id); });
+    if(tMin) tMin.addEventListener('click', (e)=>{ e.stopPropagation(); minimizeWindow(id); });
+    if(tMax) tMax.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMaximize(id); });
 
-  // dragging
-  const header = w.querySelector('.win-header');
-  let dragging = false, offX=0, offY=0;
-  const startDrag = (clientX, clientY)=>{
-    if(w.classList.contains('maximized')) return;
-    dragging = true;
-    const rect = w.getBoundingClientRect();
-    offX = clientX - rect.left; offY = clientY - rect.top;
-    focusWindow(id);
-  };
-  header.addEventListener('mousedown', (e)=> startDrag(e.clientX, e.clientY));
-  header.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; startDrag(t.clientX, t.clientY); }, {passive:true});
-  window.addEventListener('mousemove', (e)=>{
-    if(!dragging) return;
-    w.style.left = Math.max(0, e.clientX - offX)+'px';
-    w.style.top = Math.max(28, e.clientY - offY)+'px';
-  });
-  window.addEventListener('touchmove', (e)=>{
-    if(!dragging) return;
-    const t = e.touches[0];
-    w.style.left = Math.max(0, t.clientX - offX)+'px';
-    w.style.top = Math.max(28, t.clientY - offY)+'px';
-  }, {passive:true});
-  window.addEventListener('mouseup', ()=> dragging=false);
-  window.addEventListener('touchend', ()=> dragging=false);
+    // dragging (desktop only)
+    const header = w.querySelector('.win-header');
+    let dragging = false, offX=0, offY=0;
+    const startDrag = (clientX, clientY)=>{
+      if(w.classList.contains('maximized')) return;
+      dragging = true;
+      const rect = w.getBoundingClientRect();
+      offX = clientX - rect.left; offY = clientY - rect.top;
+      focusWindow(id);
+    };
+    header.addEventListener('mousedown', (e)=> startDrag(e.clientX, e.clientY));
+    header.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; startDrag(t.clientX, t.clientY); }, {passive:true});
+    window.addEventListener('mousemove', (e)=>{
+      if(!dragging) return;
+      w.style.left = Math.max(0, e.clientX - offX)+'px';
+      w.style.top = Math.max(28, e.clientY - offY)+'px';
+    });
+    window.addEventListener('touchmove', (e)=>{
+      if(!dragging) return;
+      const t = e.touches[0];
+      w.style.left = Math.max(0, t.clientX - offX)+'px';
+      w.style.top = Math.max(28, t.clientY - offY)+'px';
+    }, {passive:true});
+    window.addEventListener('mouseup', ()=> dragging=false);
+    window.addEventListener('touchend', ()=> dragging=false);
 
-  header.addEventListener('dblclick', ()=> toggleMaximize(id));
+    header.addEventListener('dblclick', ()=> toggleMaximize(id));
+  }
 
   if(onMount) onMount(w);
   return w;
@@ -1396,6 +1652,7 @@ function openProjects(){
       w.querySelectorAll('.finder-item').forEach(node=>{
         node.addEventListener('dblclick', ()=> openProjectDetail(node.dataset.proj));
         node.addEventListener('click', ()=>{
+          if(isMobileView()){ openProjectDetail(node.dataset.proj); return; }
           w.querySelectorAll('.finder-item').forEach(n=>n.style.background='');
           node.style.background='rgba(139,123,216,0.15)';
         });
@@ -1483,6 +1740,7 @@ function openCertificates(){
       w.querySelectorAll('.finder-item').forEach(node=>{
         node.addEventListener('dblclick', ()=> openCertificateDetail(node.dataset.cert));
         node.addEventListener('click', ()=>{
+          if(isMobileView()){ openCertificateDetail(node.dataset.cert); return; }
           w.querySelectorAll('.finder-item').forEach(n=>n.style.background='');
           node.style.background='rgba(139,123,216,0.15)';
         });
@@ -1686,9 +1944,10 @@ setTimeout(finishBoot, 2600); // safety fallback so boot never blocks the page
 
 /* ---------- Boot: welcome window ---------- */
 window.addEventListener('load', ()=>{
+  const hint = document.getElementById('boot-hint');
+  if(hint) hint.textContent = isMobileView() ? 'Tap an icon, or use the Dock below' : 'Double-click an icon, or use the Dock below';
   setTimeout(()=>{ openAbout(); }, 2150);
   setTimeout(()=>{
-    const hint = document.getElementById('boot-hint');
     if(hint) hint.style.transition = 'opacity 1s ease';
     if(hint) hint.style.opacity = '0';
   }, 6000);
@@ -1882,6 +2141,286 @@ const statusTextEl = document.getElementById('status-text');
 if(statusTextEl){
   statusTextEl.textContent = STATUSES[Math.floor(Math.random()*STATUSES.length)];
 }
+
+/* ============================================================
+   Toast — tiny transient confirmation bubble (used by the menu bar)
+   ============================================================ */
+let toastTimer = null;
+function showToast(msg){
+  let t = document.getElementById('mini-toast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'mini-toast';
+    t.style.cssText = 'position:fixed;bottom:82px;left:50%;transform:translateX(-50%) translateY(8px);'+
+      'background:rgba(24,21,36,0.92);color:#fff;font-family:var(--font-body);font-size:12.5px;font-weight:600;'+
+      'padding:9px 16px;border-radius:20px;box-shadow:0 10px 26px rgba(0,0,0,0.35);z-index:21000;'+
+      'opacity:0;transition:opacity .18s ease, transform .18s ease;pointer-events:none;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  clearTimeout(toastTimer);
+  requestAnimationFrame(()=>{
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+  });
+  toastTimer = setTimeout(()=>{
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(8px)';
+  }, 1600);
+}
+
+/* ============================================================
+   Clickable Menu Bar
+   ============================================================ */
+const menuLayer = document.getElementById('menu-dropdown-layer');
+let activeMenu = null;
+
+function copyToClipboard(text, label){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=> showToast(label+' copied')).catch(()=> showToast(label+': '+text));
+  } else {
+    showToast(label+': '+text);
+  }
+}
+
+function topmostWindowId(){
+  let best = null, bestZ = -1;
+  Object.keys(openWindows).forEach(id=>{
+    const rec = openWindows[id];
+    if(!document.body.contains(rec.el)) return;
+    if(rec.minimized) return;
+    const z = parseInt(rec.el.style.zIndex||'0', 10);
+    if(z > bestZ){ bestZ = z; best = id; }
+  });
+  return best;
+}
+
+function buildMenuItems(menuKey){
+  const githubUrl = PROFILE.socials.find(s=>s.label==='GitHub').url;
+  if(menuKey === 'apple'){
+    return [
+      { label:'About Jeo\u2019s Portfolio', action:()=> openApp('about') },
+      { label:'Change Wallpaper\u2026', action:()=> openWallpaperPicker() },
+      { sep:true },
+      { label:'Visit GitHub \u2197', action:()=> window.open(githubUrl,'_blank') },
+    ];
+  }
+  if(menuKey === 'file'){
+    return [
+      { label:'New Finder Window', shortcut:'\u2318N', action:()=> openApp('projects') },
+      { label:'Open Terminal', shortcut:'\u2318T', action:()=> openApp('terminal') },
+      { sep:true },
+      { label:'Close Window', shortcut:'\u2318W', action:()=>{
+          const id = topmostWindowId();
+          if(id) closeWindow(id); else showToast('No window to close');
+        } },
+    ];
+  }
+  if(menuKey === 'edit'){
+    return [
+      { label:'Copy Email Address', action:()=> copyToClipboard(PROFILE.email, 'Email') },
+      { label:'Copy Phone Number', action:()=> copyToClipboard(PROFILE.phone, 'Phone') },
+    ];
+  }
+  if(menuKey === 'view'){
+    const widgetsLayer = document.getElementById('widgets-layer');
+    const hidden = widgetsLayer && widgetsLayer.style.display === 'none';
+    return [
+      { label:'Change Wallpaper\u2026', action:()=> openWallpaperPicker() },
+      { label: hidden ? 'Show Desktop Widgets' : 'Hide Desktop Widgets', action:()=>{
+          if(!widgetsLayer) return;
+          widgetsLayer.style.display = hidden ? 'flex' : 'none';
+        } },
+      { sep:true },
+      { label:'Enter Full Screen', shortcut:'\u2303\u2318F', action:()=>{
+          const id = topmostWindowId();
+          if(id) toggleMaximize(id); else showToast('No window is open');
+        } },
+    ];
+  }
+  if(menuKey === 'go'){
+    return [
+      { label:'About Me', action:()=> openApp('about') },
+      { label:'Projects', action:()=> openApp('projects') },
+      { label:'Certificates', action:()=> openApp('certificates') },
+      { label:'Resume', action:()=> openApp('resume') },
+      { label:'Contact', action:()=> openApp('contact') },
+      { label:'Terminal', action:()=> openApp('terminal') },
+    ];
+  }
+  if(menuKey === 'window'){
+    const ids = Object.keys(openWindows).filter(id=> document.body.contains(openWindows[id].el));
+    const items = ids.map(id=>({
+      label: (openWindows[id].minimized ? '\u25CB ' : '\u25CF ') + (openWindows[id].title || id),
+      action:()=>{ if(openWindows[id].minimized) restoreWindow(id); else focusWindow(id); }
+    }));
+    if(!items.length){
+      return [{ label:'No Open Windows', disabled:true, action:()=>{} }];
+    }
+    items.push({ sep:true });
+    items.push({ label:'Minimize All', action:()=>{
+      ids.forEach(id=> minimizeWindow(id));
+    } });
+    return items;
+  }
+  if(menuKey === 'help'){
+    return [
+      { label:'About This Portfolio', action:()=> openApp('about') },
+      { label:'Send Feedback', action:()=> window.open('mailto:'+PROFILE.email,'_self') },
+      { label:'View Source on GitHub \u2197', action:()=> window.open(githubUrl,'_blank') },
+    ];
+  }
+  return [];
+}
+
+function closeActiveMenu(){
+  if(activeMenu){
+    activeMenu.dropdown.remove();
+    activeMenu.trigger.classList.remove('menu-open');
+    activeMenu = null;
+  }
+}
+
+function openMenu(trigger, menuKey){
+  if(activeMenu && activeMenu.trigger === trigger){ closeActiveMenu(); return; }
+  closeActiveMenu();
+  const items = buildMenuItems(menuKey);
+  const dd = document.createElement('div');
+  dd.className = 'menu-dropdown open';
+  dd.innerHTML = items.map(it=>{
+    if(it.sep) return '<div class="md-sep"></div>';
+    return `<div class="md-item${it.disabled ? ' disabled':''}" data-idx="">${it.label}${it.shortcut ? `<span class="md-shortcut">${it.shortcut}</span>` : ''}</div>`;
+  }).join('');
+  const rect = trigger.getBoundingClientRect();
+  dd.style.left = Math.min(rect.left, window.innerWidth - 230) + 'px';
+  menuLayer.appendChild(dd);
+  const nodes = dd.querySelectorAll('.md-item');
+  let ptr = 0;
+  nodes.forEach(node=>{
+    while(items[ptr] && items[ptr].sep) ptr++;
+    const it = items[ptr]; ptr++;
+    if(!it || it.disabled) return;
+    node.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      closeActiveMenu();
+      it.action();
+    });
+  });
+  trigger.classList.add('menu-open');
+  activeMenu = { trigger, dropdown:dd };
+}
+
+document.querySelectorAll('#menubar [data-menu]').forEach(trigger=>{
+  trigger.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const key = trigger.dataset.menu;
+    if(key === 'clock'){ openWallpaperPicker(); return; }
+    openMenu(trigger, key);
+  });
+});
+document.addEventListener('click', (e)=>{
+  if(activeMenu && !activeMenu.dropdown.contains(e.target) && e.target !== activeMenu.trigger){
+    closeActiveMenu();
+  }
+});
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeActiveMenu(); });
+
+/* ============================================================
+   Desk Buddy (pixel pet) widget — a little idle companion
+   ============================================================ */
+const PET_MOODS = ['feeling curious', 'watching the blobs drift', 'thinking about coffee', 'in a great mood', 'plotting something cute', 'admiring the wallpaper'];
+const petGuy = document.getElementById('pet-guy');
+const petMoodEl = document.getElementById('pet-mood');
+const petStage = document.getElementById('pet-stage');
+const petMouth = document.getElementById('pet-mouth');
+if(petGuy){
+  petGuy.addEventListener('click', ()=>{
+    petGuy.classList.remove('pet-happy');
+    void petGuy.offsetWidth; // restart animation
+    petGuy.classList.add('pet-happy');
+    if(petMouth) petMouth.setAttribute('d','M15.5 25.5c1.5-1.2 3.2-1.7 4.5-1.7s3 .5 4.5 1.7');
+    if(petMoodEl) petMoodEl.textContent = PET_MOODS[Math.floor(Math.random()*PET_MOODS.length)];
+    if(petStage){
+      const spark = document.createElement('span');
+      spark.className = 'pet-sparkle';
+      spark.textContent = '\u2728';
+      spark.style.left = (14 + Math.random()*20) + 'px';
+      spark.style.bottom = '30px';
+      petStage.appendChild(spark);
+      setTimeout(()=> spark.remove(), 700);
+    }
+    setTimeout(()=>{ if(petMouth) petMouth.setAttribute('d','M15.5 24c1.5 1.6 3.2 2.4 4.5 2.4s3-.8 4.5-2.4'); }, 900);
+  });
+}
+setInterval(()=>{
+  if(petMoodEl && Math.random() < 0.5){
+    petMoodEl.textContent = PET_MOODS[Math.floor(Math.random()*PET_MOODS.length)];
+  }
+}, 9000);
+
+/* ============================================================
+   Coffee Counter widget — playful click-to-track, resets daily
+   ============================================================ */
+const COFFEE_KEY = 'jl-portfolio-coffee-v1';
+function todayStr(){ return new Date().toDateString(); }
+function loadCoffee(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(COFFEE_KEY) || 'null');
+    if(saved && saved.date === todayStr()) return saved.count;
+  }catch(e){}
+  return 0;
+}
+function saveCoffee(count){
+  try{ localStorage.setItem(COFFEE_KEY, JSON.stringify({ date: todayStr(), count })); }catch(e){}
+}
+let coffeeCount = loadCoffee();
+const coffeeCountEl = document.getElementById('coffee-count');
+const coffeeCupsEl = document.getElementById('coffee-cups');
+const coffeeAddBtn = document.getElementById('coffee-add');
+const coffeeResetBtn = document.getElementById('coffee-reset');
+function renderCoffee(){
+  if(coffeeCountEl) coffeeCountEl.textContent = coffeeCount;
+  if(coffeeCupsEl) coffeeCupsEl.innerHTML = Array.from({length: Math.min(coffeeCount, 12)}).map(()=> '<span class="coffee-cup">\u2615</span>').join('');
+}
+renderCoffee();
+if(coffeeAddBtn) coffeeAddBtn.addEventListener('click', ()=>{
+  coffeeCount++;
+  saveCoffee(coffeeCount);
+  renderCoffee();
+  if(coffeeCount === 4) showToast('4 cups\u2026 maybe some water too?');
+});
+if(coffeeResetBtn) coffeeResetBtn.addEventListener('click', ()=>{
+  coffeeCount = 0;
+  saveCoffee(coffeeCount);
+  renderCoffee();
+});
+
+/* ============================================================
+   Mini Calendar widget — current month, today highlighted
+   ============================================================ */
+function renderCalendar(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const monthEl = document.getElementById('cal-month');
+  const yearEl = document.getElementById('cal-year');
+  const gridEl = document.getElementById('cal-grid');
+  if(!gridEl) return;
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  if(monthEl) monthEl.textContent = monthNames[month];
+  if(yearEl) yearEl.textContent = year;
+  const firstDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const dows = ['S','M','T','W','T','F','S'];
+  let html = dows.map(d=>`<span class="cal-dow">${d}</span>`).join('');
+  for(let i=0;i<firstDow;i++) html += '<span class="cal-day cal-pad">0</span>';
+  for(let d=1; d<=daysInMonth; d++){
+    const isToday = d === now.getDate();
+    html += `<span class="cal-day${isToday ? ' cal-today':''}">${d}</span>`;
+  }
+  gridEl.innerHTML = html;
+}
+renderCalendar();
 </script>
 </body>
 </html>
