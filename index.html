@@ -8,10 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   CONFIG NOTE: Search for "EDIT ME" in the <script> at the
-   bottom to change name, bio, projects, links, and resume text.
-   ============================================================ */
 
 :root{
   --ink-900:#181524;
@@ -41,7 +37,6 @@ html,body{
   user-select:none;
 }
 
-/* ---------------- Desktop / Wallpaper ---------------- */
 :root{
   --wp-base: linear-gradient(160deg, #1a1836 0%, #241f45 35%, #2c2456 65%, #1c1a3a 100%);
   --wp-blob1: #ff8a65;
@@ -82,7 +77,6 @@ html,body{
   .blob{ animation:none; }
 }
 
-/* subtle grain */
 #desktop::after{
   content:"";
   position:absolute; inset:0;
@@ -90,7 +84,6 @@ html,body{
   pointer-events:none;
 }
 
-/* ---------------- Menu Bar ---------------- */
 #menubar{
   position:fixed; top:0; left:0; right:0; height:28px;
   background:var(--glass-light);
@@ -116,7 +109,6 @@ html,body{
 #menubar .icon{ font-size:12px; opacity:0.85; }
 #clock{ font-variant-numeric:tabular-nums; min-width:64px; text-align:right; cursor:pointer;}
 
-/* Menu bar dropdowns */
 .menu-dropdown{
   position:fixed; top:28px; z-index:19500;
   min-width:210px;
@@ -144,7 +136,6 @@ html,body{
 .menu-dropdown .md-shortcut{ font-size:11px; color:var(--ink-300); font-family:var(--font-mono); }
 .menu-dropdown .md-sep{ height:1px; background:rgba(0,0,0,0.08); margin:5px 4px; }
 
-/* ---------------- Desktop Icons ---------------- */
 #icons{
   position:absolute; inset:32px 0 78px 0;
   z-index:10;
@@ -169,7 +160,6 @@ html,body{
   filter:drop-shadow(0 6px 10px rgba(0,0,0,0.35));
 }
 
-/* ---------------- Icon tiles (sophisticated app icons) ---------------- */
 .icon-tile{
   display:flex; align-items:center; justify-content:center;
   border-radius:22%;
@@ -193,7 +183,6 @@ html,body{
   line-height:1.25;
 }
 
-/* ---------------- Dock ---------------- */
 #dock-wrap{
   position:fixed; bottom:8px; left:50%; transform:translateX(-50%);
   z-index:9500;
@@ -237,7 +226,6 @@ html,body{
 .dock-item.running .dot{ opacity:1; }
 .dock-sep{ width:1px; height:36px; background:rgba(0,0,0,0.15); margin:0 2px; align-self:center; }
 
-/* ---------------- Windows ---------------- */
 .window{
   position:absolute;
   min-width:300px;
@@ -292,7 +280,6 @@ html,body{
   border-radius:0;
 }
 
-/* ---------------- iOS-style app screen header (mobile only) ---------------- */
 .ios-grabber{
   width:36px; height:5px; border-radius:3px;
   background:rgba(0,0,0,0.18);
@@ -320,7 +307,6 @@ html,body{
 .ios-header-spacer{ width:42px; flex:0 0 auto; }
 .mobile-header .win-title{ margin-right:0; font-size:15px; font-weight:700; }
 
-/* Finder-style grid (Projects window) */
 .finder-toolbar{
   display:flex; align-items:center; gap:8px; padding:8px 14px;
   border-bottom:1px solid rgba(0,0,0,0.06); background:#fbfaff;
@@ -404,7 +390,6 @@ html,body{
 }
 .proj-hero-dot.active{ background:#fff; transform:scale(1.35); }
 
-/* Certificate detail (mirrors proj-detail, taller hero for cert images) */
 .cert-detail{ padding:26px 30px; font-family:var(--font-body); color:var(--ink-900); }
 .cert-detail h1{
   font-family:var(--font-display); font-size:24px; margin:0 0 4px; color:var(--ink-900);
@@ -434,7 +419,6 @@ html,body{
   background:var(--window-header); display:inline-block; padding:6px 10px; border-radius:8px; margin-top:14px;
 }
 
-/* About window */
 .about-wrap{ padding:30px 34px; }
 .about-header{ display:flex; gap:20px; align-items:center; margin-bottom:22px; }
 .avatar{
@@ -452,7 +436,6 @@ html,body{
 .avatar.has-photo:hover{ box-shadow:0 6px 20px rgba(139,123,216,0.6); transform:scale(1.03); }
 .avatar{ transition:transform .15s ease, box-shadow .15s ease; }
 
-/* ---------------- Image Viewer (Preview.app) ---------------- */
 .viewer-body{
   height:100%; display:flex; flex-direction:column;
   background:#1c1a2e;
@@ -475,7 +458,6 @@ html,body{
 }
 .viewer-bar a{ color:var(--accent-mint); text-decoration:none; font-weight:600; }
 
-/* clickable project hero images */
 .proj-hero.has-photo{ cursor:zoom-in; padding:0; overflow:hidden; }
 .proj-hero img{ width:100%; height:100%; object-fit:cover; display:block; }
 .about-header h1{ font-family:var(--font-display); font-size:22px; margin:0 0 4px; color:var(--ink-900); }
@@ -491,7 +473,6 @@ html,body{
   color:var(--ink-300); font-weight:700; margin:22px 0 10px;
 }
 
-/* Resume window */
 .resume-wrap{ padding:30px 36px; font-size:13.5px; color:var(--ink-700); }
 .resume-wrap h1{ font-family:var(--font-display); font-size:24px; color:var(--ink-900); margin:0 0 2px;}
 .resume-wrap .sub{ color:var(--ink-500); margin-bottom:18px; font-size:13px;}
@@ -506,7 +487,6 @@ html,body{
   padding:9px 16px; border-radius:9px;
 }
 
-/* Contact window */
 .contact-wrap{ padding:28px 32px; }
 .contact-wrap h1{ font-family:var(--font-display); font-size:22px; margin:0 0 6px; color:var(--ink-900); }
 .contact-wrap .sub{ color:var(--ink-500); font-size:13.5px; margin-bottom:20px; }
@@ -544,7 +524,6 @@ html,body{
   border:1.5px solid rgba(0,0,0,0.12); padding:8px 13px; border-radius:8px;
 }
 
-/* Terminal window */
 .terminal{
   background:#191622; color:#c9f7e6; font-family:var(--font-mono); font-size:13px;
   padding:16px 18px; height:100%; line-height:1.7; white-space:pre-wrap;
@@ -554,7 +533,6 @@ html,body{
 .blink{ animation:blink 1s step-end infinite; }
 @keyframes blink{ 50%{opacity:0;} }
 
-/* Context menu */
 #ctx-menu{
   position:fixed; z-index:20000; background:rgba(250,249,255,0.96);
   backdrop-filter:blur(14px); border-radius:10px; padding:6px;
@@ -564,7 +542,6 @@ html,body{
 #ctx-menu div{ padding:8px 12px; border-radius:6px; cursor:pointer; color:var(--ink-900); }
 #ctx-menu div:hover{ background:rgba(139,123,216,0.15); }
 
-/* Wallpaper picker */
 .wallpaper-wrap{ padding:26px 28px; }
 .wallpaper-wrap h1{ font-family:var(--font-display); font-size:20px; margin:0 0 4px; color:var(--ink-900); }
 .wallpaper-wrap .sub{ color:var(--ink-500); font-size:13px; margin-bottom:20px; }
@@ -595,7 +572,6 @@ html,body{
   color:var(--ink-700); font-weight:600; font-size:13px; padding:9px 14px; border-radius:9px; cursor:pointer;
 }
 
-/* ---------------- Boot Screen ---------------- */
 #boot-screen{
   position:fixed; inset:0; z-index:99999;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -632,7 +608,6 @@ html,body{
   .boot-bar-fill{ animation-duration:.6s; }
 }
 
-/* Mobile boot hint */
 #boot-hint{
   position:fixed; bottom:78px; left:50%; transform:translateX(-50%);
   color:rgba(255,255,255,0.75); font-size:11.5px; font-weight:500;
@@ -640,7 +615,6 @@ html,body{
   pointer-events:none;
 }
 
-/* ---------------- Desktop Widgets ---------------- */
 #widgets-layer{
   position:absolute; top:44px; left:18px; z-index:12;
   width:480px;
@@ -680,7 +654,6 @@ html,body{
 }
 .widget-icon{ flex:0 0 auto; color:var(--ink-500); display:block; }
 
-/* Music player widget */
 .music-body{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
 .vinyl{
   width:52px; height:52px; border-radius:50%; flex:0 0 auto;
@@ -728,7 +701,6 @@ html,body{
 .music-controls .music-play-btn:hover{ background:var(--ink-700); }
 .music-hint{ font-size:9.5px; color:var(--ink-300); text-align:center; margin-top:8px; }
 
-/* Quote widget */
 .quote-text{
   font-size:12.5px; line-height:1.55; color:var(--ink-700); font-style:italic;
   margin-bottom:10px; min-height:38px;
@@ -739,10 +711,8 @@ html,body{
   font-family:var(--font-body);
 }
 
-/* Status widget */
 .status-text{ font-size:12.5px; line-height:1.55; color:var(--ink-700); }
 
-/* Pixel pet widget */
 .pet-stage{
   position:relative; height:64px; border-radius:12px; margin-bottom:8px;
   background:linear-gradient(180deg, rgba(139,123,216,0.1), rgba(127,224,207,0.1));
@@ -768,7 +738,6 @@ html,body{
 .pet-mood{ font-size:11px; color:var(--ink-500); }
 .pet-hint{ font-size:9.5px; color:var(--ink-300); text-align:center; margin-top:6px; }
 
-/* Coffee counter widget */
 .coffee-row{ display:flex; align-items:center; gap:12px; }
 .coffee-count{
   font-family:var(--font-display); font-weight:800; font-size:28px; color:var(--ink-900);
@@ -791,7 +760,6 @@ html,body{
   font-size:11px; font-weight:700; color:var(--accent-violet); font-family:var(--font-body);
 }
 
-/* Mini calendar widget */
 .cal-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
 .cal-month{ font-size:12.5px; font-weight:700; color:var(--ink-900); }
 .cal-year{ font-size:11px; color:var(--ink-500); }
@@ -801,7 +769,6 @@ html,body{
 .cal-day.cal-today{ background:var(--accent-violet); color:#fff; font-weight:700; }
 .cal-day.cal-pad{ visibility:hidden; }
 
-/* ---------------- Responsive ---------------- */
 @media (max-width:700px){
   #icons{ inset:28px 0 84px 0; }
   .icon-item{ width:74px; }
@@ -826,7 +793,6 @@ html,body{
   .coffee-count{ font-size:22px; }
   .coffee-btn{ width:38px; height:38px; }
 
-  /* ---- iPhone-style home screen ---- */
   #menu-app-name{ display:none; }
   #dock{ max-width:94vw; overflow-x:auto; -ms-overflow-style:none; scrollbar-width:none; }
   #dock::-webkit-scrollbar{ display:none; }
@@ -997,9 +963,6 @@ html,body{
 </div>
 
 <script>
-/* ============================================================
-   EDIT ME — all portfolio content lives here.
-   ============================================================ */
 const PROFILE = {
   name: "Jeo Mayku Tecson",
   initials: "JT",
@@ -1041,11 +1004,6 @@ const RESUME = {
   education: "B.S. Information Technology — La Salle University, 2026"
 };
 
-// Add one or more image paths to the "images:" array of any project below
-// to show real screenshots instead of the icon tile. Add as many as you like —
-// e.g. images: ["assets/my-project/shot1.png", "assets/my-project/shot2.png"] —
-// and a left/right arrow + dots will automatically appear so people can browse
-// through them. Leave the array empty ([]) to keep the icon-tile placeholder.
 const PROJECTS = [
   {
     id: "subanengo-web",
@@ -1137,10 +1095,6 @@ const PROJECTS = [
   }
 ];
 
-// Certifications — add one entry per certificate.
-// "image" should point to a photo/scan of the certificate (e.g. "assets/certs/aws-ccp.png").
-// Leave "image" empty to show a placeholder ribbon icon instead.
-// "credentialUrl" is optional — link to verify the credential online.
 const CERTIFICATES = [
   {
     id: "philnits-cert",
@@ -1214,13 +1168,10 @@ const CERTIFICATES = [
   },
 ];
 
-/* ============================================================
-   Below this line: app engine. No need to edit for basic use.
-   ============================================================ */
 
 let zTop = 100;
 let winCount = 0;
-const openWindows = {}; // id -> {el, minimized}
+const openWindows = {};
 
 function isMobileView(){
   return window.matchMedia('(max-width: 700px)').matches;
@@ -1233,7 +1184,6 @@ function el(tag, cls, html){
   return e;
 }
 
-/* ---------- Icon system (sophisticated tile icons, no emoji) ---------- */
 const ICONS = {
   about:    { bg:'linear-gradient(150deg,#8b7bd8,#5b4fa8)', path:'<circle cx="12" cy="8.6" r="3.4"/><path d="M5.2 19.4c1.3-3 3.7-4.6 6.8-4.6s5.5 1.6 6.8 4.6"/>' },
   projects: { bg:'linear-gradient(150deg,#7fb8e0,#4a7fc9)', path:'<path d="M3.5 7.2c0-.7.6-1.2 1.3-1.2h4.4l1.6 2h8.4c.7 0 1.3.5 1.3 1.2v9.1c0 .7-.6 1.3-1.3 1.3H4.8c-.7 0-1.3-.6-1.3-1.3z"/>' },
@@ -1264,7 +1214,6 @@ function iconTile(key, size, extraClass){
   </span>`;
 }
 
-/* ---------- Clock ---------- */
 function tickClock(){
   const now = new Date();
   const opts = { weekday:'short', month:'short', day:'numeric' };
@@ -1277,7 +1226,6 @@ function tickClock(){
 }
 tickClock(); setInterval(tickClock, 1000*15);
 
-/* ---------- Desktop Icons ---------- */
 const DESKTOP_ICONS = [
   { id:'about',        label:'About Me',        iconKey:'about',        kind:'window' },
   { id:'projects',     label:'Projects',        iconKey:'projects',     kind:'window' },
@@ -1305,7 +1253,6 @@ DESKTOP_ICONS.forEach((icon, idx) => {
   item.dataset.iconId = icon.id;
   item.innerHTML = `<div class="icon-glyph">${iconTile(icon.iconKey, 52)}</div><div class="icon-label">${icon.label}</div>`;
 
-  // initial position: right-aligned column, or restored from storage
   const colWidth = 96;
   const rowHeight = 90;
   const saved = savedIconPositions[icon.id];
@@ -1337,8 +1284,6 @@ document.getElementById('desktop').addEventListener('click', (e)=>{
   }
 });
 
-/* ---------- Draggable desktop icons (mouse: click+drag / touch: long-press+drag) ---------- */
-/* Disabled entirely on mobile — the iPhone-style home screen uses a fixed grid and single tap to open. */
 function makeIconDraggable(item, id){
   let dragging = false;
   let longPressTimer = null;
@@ -1352,7 +1297,6 @@ function makeIconDraggable(item, id){
     dragging = true;
     item.classList.add('dragging');
     item.dataset.justDragged = '1';
-    // normalize to left/top (drop any right-based anchoring)
     const rect = item.getBoundingClientRect();
     const cRect = containerRect();
     startLeft = rect.left - cRect.left;
@@ -1438,8 +1382,6 @@ function makeIconDraggable(item, id){
   }, {passive:true});
 }
 
-/* ---------- Draggable desktop widgets ---------- */
-/* Drag handle = the widget's header row. Positions persist per-browser via localStorage. */
 const WIDGET_POS_KEY = 'jl-portfolio-widget-positions-v1';
 const WIDGET_DEFAULTS = {
   music:    { x:0,   y:0   },
@@ -1568,15 +1510,12 @@ function makeWidgetDraggable(widget, id, layer){
     window.addEventListener('touchmove', onTouchMove, {passive:false});
     window.addEventListener('touchend', onTouchEnd);
   }, {passive:true});
-
-  // bring to front on any interaction within the widget body too
   widget.addEventListener('mousedown', ()=>{
     if(isMobileView()) return;
     widget.style.zIndex = ++widgetZTop;
   });
 }
 
-/* ---------- Dock ---------- */
 const DOCK_APPS = [
   { id:'about',        label:'About Me',      iconKey:'about' },
   { id:'projects',     label:'Projects',      iconKey:'projects' },
@@ -1607,7 +1546,6 @@ function setDockRunning(id, running){
   if(d) d.classList.toggle('running', running);
 }
 
-/* ---------- Window Engine ---------- */
 function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
   if(openWindows[id] && document.body.contains(openWindows[id].el)){
     focusWindow(id);
@@ -1651,12 +1589,10 @@ function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
   openWindows[id] = { el:w, minimized:false, title:title };
   setDockRunning(id, true);
 
-  // focus on mousedown anywhere in window
   w.addEventListener('mousedown', ()=> focusWindow(id));
   w.addEventListener('touchstart', ()=> focusWindow(id), {passive:true});
 
   if(mobile){
-    // iOS-style header: back button closes the app screen, swipe down to dismiss
     const backBtn = w.querySelector('.ios-back');
     if(backBtn) backBtn.addEventListener('click', (e)=>{ e.stopPropagation(); closeWindow(id); });
     const mh = w.querySelector('.mobile-header');
@@ -1681,7 +1617,6 @@ function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
       });
     }
   } else {
-    // traffic lights
     const tClose = w.querySelector('.t-close');
     const tMin = w.querySelector('.t-min');
     const tMax = w.querySelector('.t-max');
@@ -1689,7 +1624,6 @@ function makeWindow({ id, title, width, height, x, y, bodyHTML, onMount }){
     if(tMin) tMin.addEventListener('click', (e)=>{ e.stopPropagation(); minimizeWindow(id); });
     if(tMax) tMax.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMaximize(id); });
 
-    // dragging (desktop only)
     const header = w.querySelector('.win-header');
     let dragging = false, offX=0, offY=0;
     const startDrag = (clientX, clientY)=>{
@@ -1752,7 +1686,6 @@ function toggleMaximize(id){
   rec.el.classList.toggle('maximized');
 }
 
-/* ---------- App Content Builders ---------- */
 function openApp(id){
   if(id === 'about') return openAbout();
   if(id === 'projects') return openProjects();
@@ -1816,8 +1749,6 @@ function openProjectDetail(projId){
   const p = PROJECTS.find(x=>x.id===projId);
   if(!p) return;
 
-  // Supports the new "images" array (multiple screenshots) while staying
-  // backward-compatible with the older single "image" string field.
   const images = (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
   const hasImages = images.length > 0;
   const multi = images.length > 1;
@@ -1981,7 +1912,6 @@ ${allSkills}
   makeWindow({ id:'terminal', title:'jeo — zsh — 80×24', width:480, height:340, bodyHTML:html });
 }
 
-/* ---------- Wallpaper ---------- */
 const WALLPAPERS = [
   { id:'dusk',    name:'Dusk',    base:'linear-gradient(160deg, #1a1836 0%, #241f45 35%, #2c2456 65%, #1c1a3a 100%)', b1:'#ff8a65', b2:'#7fe0cf', b3:'#8b7bd8' },
   { id:'citrus',  name:'Citrus',  base:'linear-gradient(160deg, #2a1e12 0%, #3a2818 35%, #472f16 65%, #1c140c 100%)', b1:'#ffb347', b2:'#ffe66d', b3:'#ff6f59' },
@@ -2064,7 +1994,6 @@ function openImageViewer(src, label){
   makeWindow({ id:'viewer:'+src, title:label, width:640, height:520, bodyHTML:html });
 }
 
-/* ---------- Context menu (right click, decorative) ---------- */
 const ctx = document.getElementById('ctx-menu');
 document.getElementById('desktop').addEventListener('contextmenu', (e)=>{
   e.preventDefault();
@@ -2078,7 +2007,6 @@ document.addEventListener('click', (e)=>{
 document.getElementById('ctx-info').addEventListener('click', ()=>{ ctx.style.display='none'; openAbout(); });
 document.getElementById('ctx-wallpaper').addEventListener('click', ()=>{ ctx.style.display='none'; openWallpaperPicker(); });
 
-/* ---------- Boot: startup sequence ---------- */
 const bootScreen = document.getElementById('boot-screen');
 const bootBarFill = bootScreen ? bootScreen.querySelector('.boot-bar-fill') : null;
 let bootFinished = false;
@@ -2091,9 +2019,7 @@ function finishBoot(){
 if(bootBarFill){
   bootBarFill.addEventListener('animationend', finishBoot);
 }
-setTimeout(finishBoot, 2600); // safety fallback so boot never blocks the page
-
-/* ---------- Boot: welcome window ---------- */
+setTimeout(finishBoot, 2600);
 window.addEventListener('load', ()=>{
   const hint = document.getElementById('boot-hint');
   if(hint) hint.textContent = isMobileView() ? 'Tap an icon, or use the Dock below' : 'Double-click an icon, or use the Dock below';
@@ -2104,14 +2030,6 @@ window.addEventListener('load', ()=>{
   }, 6000);
 });
 
-/* ============================================================
-   Desktop Widgets — Music Player (generative), Quote, Status
-   The music player synthesizes its own lo-fi loop entirely in
-   the browser via the Web Audio API, so there's no audio file
-   or external track needed.
-   ============================================================ */
-
-/* ---------- Generative lo-fi music engine ---------- */
 class LofiPlayer{
   constructor(){
     this.ctx = null;
@@ -2258,7 +2176,6 @@ const musicPrevBtn = document.getElementById('music-prev');
 if(musicNextBtn) musicNextBtn.addEventListener('click', ()=>{ lofi.next(); updateTrackDisplay(); });
 if(musicPrevBtn) musicPrevBtn.addEventListener('click', ()=>{ lofi.prev(); updateTrackDisplay(); });
 
-/* ---------- Quote widget ---------- */
 const QUOTES = [
   "First solve the problem, then write the code.",
   "Simplicity is the soul of efficiency.",
@@ -2279,12 +2196,11 @@ randomQuote();
 const quoteRefreshBtn = document.getElementById('quote-refresh');
 if(quoteRefreshBtn) quoteRefreshBtn.addEventListener('click', randomQuote);
 
-/* ---------- Status widget ---------- */
 const STATUSES = [
   "Fueled by coffee, building something new.",
   "Currently polishing pixels in Figma.",
   "Debugging with the patience of a saint.",
-  "Working late — night owl mode: on.",
+  "Working late, night owl mode: on.",
   "Shipping features, one commit at a time.",
   "Open to new freelance & VA opportunities."
 ];
@@ -2293,9 +2209,6 @@ if(statusTextEl){
   statusTextEl.textContent = STATUSES[Math.floor(Math.random()*STATUSES.length)];
 }
 
-/* ============================================================
-   Toast — tiny transient confirmation bubble (used by the menu bar)
-   ============================================================ */
 let toastTimer = null;
 function showToast(msg){
   let t = document.getElementById('mini-toast');
@@ -2320,9 +2233,6 @@ function showToast(msg){
   }, 1600);
 }
 
-/* ============================================================
-   Clickable Menu Bar
-   ============================================================ */
 const menuLayer = document.getElementById('menu-dropdown-layer');
 let activeMenu = null;
 
@@ -2476,9 +2386,6 @@ document.addEventListener('click', (e)=>{
 });
 document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeActiveMenu(); });
 
-/* ============================================================
-   Desk Buddy (pixel pet) widget — a little idle companion
-   ============================================================ */
 const PET_MOODS = ['feeling curious', 'watching the blobs drift', 'thinking about coffee', 'in a great mood', 'plotting something cute', 'admiring the wallpaper'];
 const petGuy = document.getElementById('pet-guy');
 const petMoodEl = document.getElementById('pet-mood');
@@ -2487,7 +2394,7 @@ const petMouth = document.getElementById('pet-mouth');
 if(petGuy){
   petGuy.addEventListener('click', ()=>{
     petGuy.classList.remove('pet-happy');
-    void petGuy.offsetWidth; // restart animation
+    void petGuy.offsetWidth; 
     petGuy.classList.add('pet-happy');
     if(petMouth) petMouth.setAttribute('d','M15.5 25.5c1.5-1.2 3.2-1.7 4.5-1.7s3 .5 4.5 1.7');
     if(petMoodEl) petMoodEl.textContent = PET_MOODS[Math.floor(Math.random()*PET_MOODS.length)];
@@ -2509,9 +2416,6 @@ setInterval(()=>{
   }
 }, 9000);
 
-/* ============================================================
-   Coffee Counter widget — playful click-to-track, resets daily
-   ============================================================ */
 const COFFEE_KEY = 'jl-portfolio-coffee-v1';
 function todayStr(){ return new Date().toDateString(); }
 function loadCoffee(){
@@ -2546,9 +2450,6 @@ if(coffeeResetBtn) coffeeResetBtn.addEventListener('click', ()=>{
   renderCoffee();
 });
 
-/* ============================================================
-   Mini Calendar widget — current month, today highlighted
-   ============================================================ */
 function renderCalendar(){
   const now = new Date();
   const year = now.getFullYear();
@@ -2573,7 +2474,6 @@ function renderCalendar(){
 }
 renderCalendar();
 
-/* Initialize draggable widget positions last, after all widget content is built */
 initWidgets();
 </script>
 </body>
