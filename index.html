@@ -468,6 +468,10 @@ html,body{
   background:var(--window-header); border:1px solid rgba(0,0,0,0.06);
   font-size:12px; font-weight:600; padding:6px 12px; border-radius:8px; color:var(--ink-700);
 }
+.skill-chip.skill-chip-featured{
+  background:rgba(139,123,216,0.16); border:1px solid rgba(139,123,216,0.35);
+  color:var(--ink-900);
+}
 .section-label{
   font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
   color:var(--ink-300); font-weight:700; margin:22px 0 10px;
@@ -967,20 +971,21 @@ const PROFILE = {
   name: "Jeo Mayku Tecson",
   initials: "JT",
   photo: "assets/about/profile-about.png",
-  role: "Virtual Assistant, Graphic Designer, Web & App Designer, Branding",
+  role: "Graphic Designer, Virtual Assistant & Social Media Manager, Branding, Web & App Designer",
   location: "Philippines",
   bio: [
-    "I am a designer who codes, a coder who understands brand, and a virtual assistant who drives growth. I handle projects from concept to execution, whether that means building a full-stack web app or managing high-converting email marketing campaigns.",
-    "I am a curious, self-motivated problem-solver ready to support you."
+    "I am a brand-focused graphic designer and a virtual assistant who drives growth. I handle projects from concept to execution, whether that means crafting minimalist, modern visual identities, orchestrating social media calendars, or managing high-converting email marketing campaigns.",
+    "When it comes to social and marketing content, I transform raw ideas into polished posts, versatile templates, and dynamic reels that elevate your digital presence.",
+    "I am a curious, flexible, and self-motivated creative problem-solver ready to support your vision."
   ],
   skillGroups: [
     {
-      label: "Web & App Dev",
-      skills: ["HTML", "CSS", "Javascript", "React", "TypeScript", "Next.js", "Tailwind", "PostgreSQL"]
+      label: "VA & Social Media Management",
+      skills: ["Canva", "Content Calendars & Scheduling", "Email Marketing", "Calendar & Inbox Management", "Figma", "Framer", "Adobe Photoshop", "Adobe Illustrator"]
     },
     {
-      label: "VA & Graphic Design",
-      skills: ["Figma", "Framer", "Canva", "Adobe Photoshop", "Adobe InDesign", "Email Marketing", "Calendar & Inbox Management", "Social Media Management"]
+      label: "Web & App Dev",
+      skills: ["HTML", "CSS", "Javascript", "React", "TypeScript", "Next.js", "Tailwind", "PostgreSQL"]
     }
   ],
   email: "jeotecson13@gmail.com",
@@ -1771,7 +1776,7 @@ function openAbout(){
       ${PROFILE.bio.map(p=>`<p>${p}</p>`).join('')}
       ${PROFILE.skillGroups.map(group => `
         <div class="section-label">${group.label}</div>
-        <div class="skills-grid">${group.skills.map(s=>`<span class="skill-chip">${s}</span>`).join('')}</div>
+        <div class="skills-grid">${group.skills.map(s=>`<span class="skill-chip${(s==='Social Media Management' || s.indexOf('Canva')===0) ? ' skill-chip-featured' : ''}">${s}</span>`).join('')}</div>
       `).join('')}
       <div class="section-label">Location</div>
       <p style="margin:0;">${PROFILE.location}</p>
